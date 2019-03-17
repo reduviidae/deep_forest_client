@@ -22,7 +22,11 @@ class Login extends Component {
       body: JSON.stringify({ user })
     })
     .then(r => r.json())
-    .then(console.log)
+    .then(data => {
+      console.log(data)
+      localStorage.setItem("token", data.jwt);
+      document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
+    })
   }
 
   render() {
