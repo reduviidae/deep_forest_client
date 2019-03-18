@@ -34,3 +34,10 @@ canvas {
   border: solid;
   margin: 10px;
 }
+
+#e12c2c {
+  background-color: #E12C2C !important;
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+}

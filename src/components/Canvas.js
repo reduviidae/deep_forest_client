@@ -7,7 +7,8 @@ class Canvas extends Component {
 
   state ={
     draw: false,
-    plots: [{x: NaN, y: NaN}]
+    plots: [{x: NaN, y: NaN}],
+    color: "#1B1B1B"
   }
 
   componentDidMount() {
@@ -30,7 +31,7 @@ class Canvas extends Component {
     ctx.miterLimit = 0.25;
     ctx.lineWidth = 0.25;
     ctx.lineJoin = "round";
-    ctx.strokeStyle = "#FA5B3D";
+    ctx.strokeStyle = this.state.color;
     ctx.imageSmoothingQuality = "high";
     ctx.beginPath();
     ctx.moveTo(plots[0].x, plots[0].y);
@@ -38,7 +39,6 @@ class Canvas extends Component {
       ctx.lineTo(plots[i].x, plots[i].y);
     };
     ctx.stroke();
-    console.log(ctx)
   }
 
   getMousePos = e => {
@@ -63,6 +63,11 @@ class Canvas extends Component {
     }
   }
 
+  changeColor = e => {
+    let color = `#${e.target.id}`
+    this.setState({ color })
+  }
+
   render (){
     return (
       <Container>
@@ -72,6 +77,8 @@ class Canvas extends Component {
         onMouseMove={this.draw}
         >
           <canvas ref="canvas" width={800} height={700}/>
+        </div>
+        <div id="e12c2c" onClick={this.changeColor}>
         </div>
       </Container>
     )
