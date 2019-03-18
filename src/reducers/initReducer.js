@@ -13,7 +13,10 @@ const initialState = {
 const initReducer = (state = initialState, action) => {
   switch (action.type){
     case "AUTH_USER":
-      return { ...state, user: action.payload }
+      return {
+        user: action.payload,
+        loggedIn: true
+      }
       break;
     default:
       return state;

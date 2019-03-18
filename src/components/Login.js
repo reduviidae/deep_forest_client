@@ -37,8 +37,8 @@ class Login extends Component {
 
 
   render() {
-    let loggedIn = this.state.loggedIn;
-    if (loggedIn){
+    console.log(this.props.state);
+    if (this.props.state.loggedIn){
       return (
         <Redirect to="/profile" />
       )
@@ -77,9 +77,7 @@ class Login extends Component {
 };
 
 const mapStateToProps = state => {
-    return {
-      user: state.user
-    }
+    return { state }
 }
 
 const mapDispatchToProps = dispatch => {
