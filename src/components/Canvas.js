@@ -29,6 +29,7 @@ class Canvas extends Component {
     const ctx = canvas.getContext("2d")
     ctx.miterLimit = 0.25;
     ctx.lineWidth = 0.25;
+    ctx.lineJoin = "round";
     ctx.strokeStyle = "#FA5B3D";
     ctx.imageSmoothingQuality = "high";
     ctx.beginPath();
@@ -70,7 +71,7 @@ class Canvas extends Component {
         onMouseUp={this.drawToFalse}
         onMouseMove={this.draw}
         >
-          <canvas ref="canvas" />
+          <canvas ref="canvas" width={800} height={700}/>
         </div>
       </Container>
     )
