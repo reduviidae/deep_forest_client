@@ -8,7 +8,8 @@ class Canvas extends Component {
   state ={
     draw: false,
     plots: [{x: NaN, y: NaN}],
-    color: "#1B1B1B"
+    color: "#1b1b1b",
+    lineWidth: 5
   }
 
   componentDidMount() {
@@ -29,7 +30,7 @@ class Canvas extends Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d")
     ctx.miterLimit = 0.25;
-    ctx.lineWidth = 0.25;
+    ctx.lineWidth = this.state.lineWidth;
     ctx.lineJoin = "round";
     ctx.strokeStyle = this.state.color;
     ctx.imageSmoothingQuality = "high";
@@ -64,8 +65,24 @@ class Canvas extends Component {
   }
 
   changeColor = e => {
-    let color = `#${e.target.id}`
+    let color = `#${e.target.id}`.replace("c-", "")
     this.setState({ color })
+  }
+
+  changeSize = e => {
+    switch(e.target.id){
+      case "small":
+        this.setState({ lineWidth: 1 });
+        break;
+      case "medium":
+       this.setState({ lineWidth: 5 });
+       break;
+      case "large":
+        this.setState({ lineWidth: 10 });
+        break;
+      default:
+        return this.state.lineWidth
+    }
   }
 
   render (){
@@ -78,7 +95,39 @@ class Canvas extends Component {
         >
           <canvas ref="canvas" width={800} height={700}/>
         </div>
-        <div id="e12c2c" onClick={this.changeColor}>
+        <div>
+          <div className="color-palette" id="c-e12c2c" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-ff8833" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-fafa37" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-afe313" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-3aa655" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-00cccc" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-0066ff" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-3f26bf" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-803790" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-c8c8cd" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-8B8680" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-1b1b1b" onClick={this.changeColor}>
+          </div>
+          <div className="color-palette" id="c-ffffff" onClick={this.changeColor}>
+          </div>
+        </div>
+        <br />
+        <div className="drawing-tool-sizes">
+          <div className="drawing-tool-size" id="small" onClick={this.changeSize}>Small</div>
+          <div className="drawing-tool-size" id="medium" onClick={this.changeSize}>Medium</div>
+          <div className="drawing-tool-size" id="large" onClick={this.changeSize}>Large</div>
         </div>
       </Container>
     )
