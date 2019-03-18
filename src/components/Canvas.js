@@ -27,20 +27,36 @@ class Canvas extends Component {
   drawOnCanvas = (plots) => {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d")
+    ctx.miterLimit = 0.25;
+    ctx.lineWidth = 0.25;
+    ctx.strokeStyle = "#FA5B3D";
+    ctx.imageSmoothingQuality = "high";
     ctx.beginPath();
     ctx.moveTo(plots[0].x, plots[0].y);
     for(let i=1; i<plots.length; i++) {
       ctx.lineTo(plots[i].x, plots[i].y);
-    }
+    };
     ctx.stroke();
+    console.log(ctx)
   }
+
+  getMousePos = e => {
+    const canvas = this.refs.canvas;
+    let rect = canvas.getBoundingClientRect();
+    let scaleX = canvas.width / rect.width;
+    let scaleY = canvas.height / rect.height;
+
+    return {
+    x: (e.clientX - rect.left) * scaleX,
+    y: (e.clientY - rect.top) * scaleY
+  }
+}
 
   draw = e => {
     if(this.state.draw){
-      let x = e.screenX
-      let y = e.screenY
+      let position = this.getMousePos(e)
       let plots = [...this.state.plots]
-      plots.push({x: x, y: y});
+      plots.push(position);
       this.setState({ plots })
       this.drawOnCanvas(plots);
     }
