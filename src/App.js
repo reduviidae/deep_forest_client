@@ -4,6 +4,7 @@ import './App.css';
 
 // components
 import Welcome from "./components/Welcome"
+import Profile from "./components/Profile"
 import Canvas from "./components/Canvas"
 
 
@@ -12,6 +13,7 @@ class App extends Component {
     return (
       <Switch>
         <Route path="/canvas" component={Canvas} />
+        <Route path="/profile" component={Profile} />
         <Route path="/" component={Welcome} />
       </Switch>
     );

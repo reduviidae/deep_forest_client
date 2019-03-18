@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Container, Form, Button } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { API_ROOT, BASIC_HEADERS } from '../constants';
+import { connect } from 'react-redux';
+import { authenticateUser } from '../actions/userActions'
 
 class Login extends Component {
 
@@ -17,7 +19,7 @@ class Login extends Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
-    let user = { name: this.state.name, password: this.state.password }
+    let user = { name: this.state.name, password: this.state.password };
     fetch(`${API_ROOT}login`, {
       method: `POST`,
       headers: BASIC_HEADERS,
@@ -25,12 +27,14 @@ class Login extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log(data)
+      console.log("authenticateUser POST to login", data)
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
-      this.setState({ loggedIn: true });
-    })
-  }
+      this.props.login(data)
+  })
+    .catch(console.error)
+  };
+
 
   render() {
     let loggedIn = this.state.loggedIn;
@@ -72,4 +76,16 @@ class Login extends Component {
   }
 };
 
-export default Login
+const mapStateToProps = state => {
+    return {
+      user: state.user
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: data => dispatch({ type: "AUTH_USER", payload: data })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
