@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
-import { Container, Button } from 'semantic-ui-react';
+import { Route, Switch } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 // components
-import Login from "./Login"
-import Signup from "./Signup"
+import WelcomePath from "./WelcomePath";
+import Login from "./Login";
+import Signup from "./Signup";
 
-export default class Welcome extends Component {
+class Welcome extends Component {
+
   render() {
     return (
       <Container id="start-container">
-        <div id="welcome-box">
-          <h1>Welcome to this drawing app</h1>
-            <div className="centered-container">
-              <Button basic color='olive'>
-                <Link to={`/login`}>
-                Login
-                </Link>
-              </Button>
-            </div>
-                <br/>
-                <br/>
-              <div className="centered-container">
-              <Button basic color='olive'>
-                <Link to={`signup`}>
-                Signup
-                </Link>
-              </Button>
-            </div>
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/" component={WelcomePath} />
           </Switch>
-        </div>
       </Container>
     )
   }
 };
+
+const mapStateToProps = () => {
+
+}
+
+const mapDispatchToProps = () => {
+
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Welcome)

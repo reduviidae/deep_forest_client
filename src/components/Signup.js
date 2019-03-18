@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { Container, Form, Button } from 'semantic-ui-react';
 import { API_ROOT, BASIC_HEADERS } from '../constants';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authenticateUser } from '../actions/userActions'
 
 class Signup extends Component {
 
   state={
     name:"",
     pronouns: "",
-    password:""
+    password:"",
+    loggedIn: false
   };
 
   onChangeHandler = e => {
@@ -27,50 +31,60 @@ class Signup extends Component {
       console.log(data)
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
+      this.setState({ loggedIn: true });
+      authenticateUser(data)
     })
   }
 
   render() {
-    return (
-      <Container>
-        <Form id="signup" onSubmit={this.onSubmitHandler}>
-          <Form.Field>
-            <input
-              type="text"
-              placeholder="Enter your username"
-              name="name"
-              value={this.state.name}
-              onChange={this.onChangeHandler}
-            />
-          </Form.Field>
-          <br/>
-          <Form.Field>
-            <input
-              type="pronouns"
-              placeholder="Enter your pronouns"
-              name="pronouns"
-              value={this.state.pronouns}
-              onChange={this.onChangeHandler}
-            />
-          </Form.Field>
-          <br />
-          <Form.Field>
-            <input
-              type="password"
-              placeholder="Enter your password"
-              name="password"
-              value={this.state.password}
-              onChange={this.onChangeHandler}
-            />
-          </Form.Field>
-          <br/>
+    let loggedIn = this.state.loggedIn;
+    if (loggedIn){
+      return (
+        <Redirect to="/profile" />
+      )
+    } else {
+      return (
+        <Container>
+          <Form id="signup" onSubmit={this.onSubmitHandler}>
+            <Form.Field>
+              <input
+                type="text"
+                placeholder="Enter your username"
+                name="name"
+                value={this.state.name}
+                onChange={this.onChangeHandler}
+              />
+            </Form.Field>
+            <br/>
+            <Form.Field>
+              <input
+                type="pronouns"
+                placeholder="Enter your pronouns"
+                name="pronouns"
+                value={this.state.pronouns}
+                onChange={this.onChangeHandler}
+              />
+            </Form.Field>
+            <br />
+            <Form.Field>
+              <input
+                type="password"
+                placeholder="Enter your password"
+                name="password"
+                value={this.state.password}
+                onChange={this.onChangeHandler}
+              />
+            </Form.Field>
+            <br/>
 
-          <Button type='submit'>Sign up</Button>
+            <Button type='submit'>Sign up</Button>
 
-        </Form>
-      </Container>
-    );
+          </Form>
+        </Container>
+      );
+    }
   }
 };
 
-export default Signup
+
+export default connect(null, { authenticateUser })(Signup);
