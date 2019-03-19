@@ -3,7 +3,7 @@ import { Container, Form, Button } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { API_ROOT, BASIC_HEADERS } from '../constants';
 import { connect } from 'react-redux';
-import { authenticateUser } from '../actions/userActions'
+// import { authenticateUser } from '../actions/userActions'
 
 class Login extends Component {
 
@@ -31,7 +31,7 @@ class Login extends Component {
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
       this.props.login(data)
-  })
+    })
     .catch(console.error)
   };
 

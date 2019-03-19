@@ -3,15 +3,14 @@ import { Container, Form, Button } from 'semantic-ui-react';
 import { API_ROOT, BASIC_HEADERS } from '../constants';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { authenticateUser } from '../actions/userActions'
+// import { authenticateUser } from '../actions/userActions'
 
 class Signup extends Component {
 
   state={
     name:"",
     pronouns: "",
-    password:"",
-    loggedIn: false
+    password:""
   };
 
   onChangeHandler = e => {
@@ -28,17 +27,16 @@ class Signup extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log(data)
+      console.log("authenticateUser POST to login", data)
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
-      this.setState({ loggedIn: true });
-      authenticateUser(data)
+      this.props.login(data)
     })
+    .catch(console.error)
   }
 
   render() {
-    let loggedIn = this.state.loggedIn;
-    if (loggedIn){
+    if (this.props.state.loggedIn){
       return (
         <Redirect to="/profile" />
       )
@@ -86,5 +84,14 @@ class Signup extends Component {
   }
 };
 
+const mapStateToProps = state => {
+    return { state }
+}
 
-export default connect(null, { authenticateUser })(Signup);
+const mapDispatchToProps = dispatch => {
+  return {
+    login: data => dispatch({ type: "AUTH_USER", payload: data })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
