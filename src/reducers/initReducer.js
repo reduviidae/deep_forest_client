@@ -1,17 +1,16 @@
 const initialState = {
-  users: [],
-  games: [],
-  user: {
+  userState: {
     jwt: "",
-    id:0,
-    name: "",
-    pronouns: "",
-    conversations: [],
-    user_games: [],
-    messages: [],
-    activeConversation: null
-  },
-  loggedIn: false,
+    user: {
+      id:0,
+      name: "",
+      pronouns: "",
+      user_games: [],
+      messages: [],
+      games: []
+    },
+    loggedIn: false
+  }
 }
 
 
@@ -19,8 +18,7 @@ const initReducer = (state = initialState, action) => {
   switch (action.type){
     case "AUTH_USER":
       return {
-        ...state,
-        user: action.payload,
+        userState: action.payload,
         loggedIn: true
       }
       break;
@@ -28,7 +26,7 @@ const initReducer = (state = initialState, action) => {
     console.log(action.payload)
       return {
         ...state,
-        user: action.payload,
+        userState: action.payload,
         loggedIn: true
       }
     break;

@@ -15,7 +15,7 @@ class Chat extends Component {
   }
 
   fetchGameData = () => {
-    fetch(`${API_ROOT}games/30`, {
+    fetch(`${API_ROOT}games`, {
       method: `GET`,
       headers: AUTH_HEADERS,
     })

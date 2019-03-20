@@ -38,7 +38,7 @@ class Login extends Component {
   render() {
     if (this.props.state.loggedIn){
       return (
-        <Redirect to="/chat" />
+        <Redirect to="/profile" />
       )
     } else {
       return (

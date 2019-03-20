@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'semantic-ui-react';
-
+import { SUB_KEY, PUB_KEY } from '../constants';
 
 class Canvas extends Component {
 
@@ -86,6 +86,8 @@ class Canvas extends Component {
   }
 
   render (){
+
+
     return (
       <Container>
         <div id="canvas"
