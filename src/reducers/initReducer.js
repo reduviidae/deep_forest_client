@@ -6,7 +6,9 @@ const initialState = {
     name: "",
     pronouns: ""
   },
-  loggedIn: false
+  loggedIn: false,
+  conversations: [],
+  activeConversation: null
 }
 
 
@@ -26,6 +28,11 @@ const initReducer = (state = initialState, action) => {
         loggedIn: true
       }
     break;
+    case "GET_CONVOS":
+    console.log(action.payload)
+      return {
+
+      }
     default:
       return state;
   }

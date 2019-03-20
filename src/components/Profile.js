@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Form, Button } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-// import { authenticateUser } from '../actions/userActions'
+import Cable from '../ActionCable/Cable'
+
+
 
 
 class Profile extends Component {
@@ -32,7 +34,7 @@ class Profile extends Component {
     } else {
       return (
         <Container>
-
+          <Cable />
       </Container>
     )}
   }
