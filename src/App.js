@@ -6,12 +6,14 @@ import './App.css';
 import Welcome from "./components/Welcome"
 import Profile from "./components/Profile"
 import Canvas from "./components/Canvas"
+import Chat from "./ActionCable/Chat"
 
 
 class App extends Component {
   render() {
     return (
       <Switch>
+        <Route path="/chat" component={Chat} />
         <Route path="/canvas" component={Canvas} />
         <Route path="/profile" component={Profile} />
         <Route path="/" component={Welcome} />

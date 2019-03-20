@@ -2,21 +2,24 @@ const initialState = {
   users: [],
   games: [],
   user: {
+    jwt: "",
     id:0,
     name: "",
-    pronouns: ""
+    pronouns: "",
+    conversations: [],
+    user_games: [],
+    messages: [],
+    activeConversation: null
   },
   loggedIn: false,
-  conversations: [],
-  activeConversation: null
 }
 
 
 const initReducer = (state = initialState, action) => {
   switch (action.type){
     case "AUTH_USER":
-    console.log("initReducer case AUTH_USER hit")
       return {
+        ...state,
         user: action.payload,
         loggedIn: true
       }
@@ -24,14 +27,16 @@ const initReducer = (state = initialState, action) => {
     case "SHOW_USER":
     console.log(action.payload)
       return {
+        ...state,
         user: action.payload,
         loggedIn: true
       }
     break;
-    case "GET_CONVOS":
+    case "LOAD_MSGS":
     console.log(action.payload)
       return {
-
+        ...state,
+        games: action.payload
       }
     default:
       return state;

@@ -23,12 +23,16 @@ class Welcome extends Component {
   }
 };
 
-const mapStateToProps = () => {
-
+const mapStateToProps = state => {
+  return {
+    state
+  }
 }
 
-const mapDispatchToProps = () => {
-
+const mapDispatchToProps = dispatch => {
+  return (
+    null
+  )
 }
 
 

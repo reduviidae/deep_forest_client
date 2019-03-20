@@ -3,7 +3,7 @@ import { Container } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Cable from '../ActionCable/Cable'
+// import Cable from '../ActionCable/Cable'
 
 
 
@@ -25,8 +25,14 @@ class Profile extends Component {
 
   }
 
+  userGames = () => {
+    if(!!this.props.state.user.games){
+      this.props.state.user.games.map(game => <li key={game.id}>{game.title}</li>)
+    }
+  }
+
   render (){
-    console.log(this.props)
+    console.log(this.props.state.user.games)
       if (this.props.state.user.id === 0){
         return (
           <Redirect to="/" />
@@ -34,7 +40,9 @@ class Profile extends Component {
     } else {
       return (
         <Container>
-          <Cable />
+          <ul className="user-games">
+            {this.userGames()}
+          </ul>
       </Container>
     )}
   }

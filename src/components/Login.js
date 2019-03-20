@@ -27,7 +27,6 @@ class Login extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log("authenticateUser POST to login", data)
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
       this.props.login(data)
@@ -39,7 +38,7 @@ class Login extends Component {
   render() {
     if (this.props.state.loggedIn){
       return (
-        <Redirect to="/profile" />
+        <Redirect to="/chat" />
       )
     } else {
       return (
