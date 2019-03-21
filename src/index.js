@@ -19,6 +19,7 @@ const store = createStore(initReducer,
 ));
 
 
+
 ReactDOM.render(
   <ActionCableProvider url={CABLE}>
   <Provider store={store}>

@@ -36,6 +36,7 @@ class Login extends Component {
 
 
   render() {
+    console.log(this.props.state.userState)
     if (this.props.state.loggedIn){
       return (
         <Redirect to="/profile" />

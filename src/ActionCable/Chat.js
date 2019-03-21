@@ -11,9 +11,11 @@ class Chat extends Component {
     newmessage: ""
   }
 
+
+
+
   componentDidMount(){
     this.fetchGameData()
-
   }
 
   fetchGameData = () => {
@@ -22,7 +24,7 @@ class Chat extends Component {
       headers: AUTH_HEADERS,
     })
     .then(r => r.json())
-    .then(this.props.getMessages)
+    .then(this.props.loadMessages)
   }
 
   typeMessage = (e, data) => {
@@ -30,6 +32,7 @@ class Chat extends Component {
   }
 
   sendMessage = e => {
+    console.log("sendMessage called")
     e.preventDefault();
     fetch(`${API_ROOT}messages`, {
       method: `POST`,
@@ -40,13 +43,13 @@ class Chat extends Component {
         content: this.state.newmessage
       })
     })
-    .then(r => console.log("sendMessage first then", r))
     .then(() => this.setState({ newmessage: "" }))
   }
 
 
   render (){
-    const messages = this.props.state.userState.user.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
+    console.log(this.props.state.userState.messages)
+    const messages = this.props.state.userState.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>
         <ul>
@@ -55,7 +58,7 @@ class Chat extends Component {
         <Cable game_id={this.props.game_id}/>
         <div id="new-message-box">
           <Form onSubmit={this.sendMessage}>
-            <Input size="big" Input focus type="textarea" name="newmessage" onChange={this.typeMessage}/>
+            <Input size="big" Input focus value={this.state.newmessage} type="textarea" name="newmessage" onChange={this.typeMessage}/>
             <Button>Send Message</Button>
           </Form>
         </div>

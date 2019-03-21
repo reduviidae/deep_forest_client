@@ -6,7 +6,7 @@ const initialState = {
       name: "",
       pronouns: "",
       user_games: [],
-      messages: [],
+      // messages: [],
       games: []
     },
     loggedIn: false,
@@ -48,6 +48,13 @@ const initReducer = (state = initialState, action) => {
           return {
             ...state,
             currentGame: action.payload
+          }
+        case "UP_MSG":
+        console.log("UP_MSG",action.payload)
+          return {
+            ...state,
+            userState: { ...state.userState, messages: [...state.userState.messages, action.payload]}
+
           }
     default:
       return state;
