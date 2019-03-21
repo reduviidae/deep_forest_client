@@ -4,23 +4,50 @@ import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Cable from './Cable'
+import Message from '../components/Message'
+
+//helpers
+import messagesSubscription from "../ActionCable/messagessubscription";
 
 class Chat extends Component {
   state ={
     newmessge: ""
   }
+// *************************************************************
+
+componentWillMount() {
+    const { game_id } = this.props;
+
+    const messageChannel = new messagesSubscription({
+      game_id,
+      onUpdate: this.onMessageUpdate,
+    });
+
+    messageChannel.subscribe();
+  }
+
+  onMessageUpdate = (data) => {
+    console.log("onMessageUpdate", data)
+    this.props.loadMessages(data);
+  }
+
+
+// *************************************************************
+
+
 
   componentDidMount(){
-    this.fetchGameData()
+    // this.fetchGameData()
+
   }
 
   fetchGameData = () => {
-    fetch(`${API_ROOT}games`, {
+    fetch(`${API_ROOT}messages`, {
       method: `GET`,
       headers: AUTH_HEADERS,
     })
     .then(r => r.json())
-    .then(this.props.getGames)
+    .then(this.props.getMessages)
   }
 
   typeMessage = (e, data) => {
@@ -33,29 +60,30 @@ class Chat extends Component {
       method: `POST`,
       headers: AUTH_HEADERS,
       body: JSON.stringify({
-        conversation_id: 20,
-        user_id: 96,
+        game_id: this.props.game_id,
+        user_id: this.props.state.userState.id,
         content: this.state.newmessge
       })
     })
-    .then(res => res.json())
-    .then(console.log)
+    .then(r => console.log("sendMessage first then", r))
+    .then(() => this.setState({ newmessge: "" }))
   }
 
 
   render (){
-    console.log(this.state)
-    const messages = !!this.props.state.games.messages && this.props.state.games.messages.map (message => <li key={message.id}>{message.user_id}: {message.content}</li>)
+    const messages = this.props.state.userState.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>
         <ul>
         {messages}
         </ul>
-        <Cable />
-        <Form onSubmit={this.sendMessage}>
-          <Input size="big" Input focus type="textarea" name="newmessge" onChange={this.typeMessage}/>
-          <Button>Send Message</Button>
-        </Form>
+        <Cable game_id={this.props.game_id}/>
+        <div id="new-message-box">
+          <Form onSubmit={this.sendMessage}>
+            <Input size="big" Input focus type="textarea" name="newmessge" onChange={this.typeMessage}/>
+            <Button>Send Message</Button>
+          </Form>
+        </div>
       </Container>
     )}
 }
@@ -66,7 +94,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getGames: data => dispatch({ type: "LOAD_MSGS", payload: data })
+    loadMessages: data => dispatch({ type: "LOAD_MSGS", payload: data })
   }
 }
 

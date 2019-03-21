@@ -61,6 +61,34 @@ canvas {
   vertical-align: center;
 }
 
+.game-container {
+  display: grid;
+  grid-template-columns: 10fr 1fr 6fr 1fr;
+  grid-template-rows: 10fr 4fr;
+}
+
+.canvas-container {
+  grid-column-start: 1;
+  margin: 20px;
+
+}
+
+.chat-container {
+  grid-column-start: 3;
+  grid-row-start: 1 / span 1;
+  margin: 15px;
+
+}
+
+#new-message-box {
+  margin: 55px;
+  padding: 5px;
+}
+
+.message-text {
+  text-align: left;
+}
+
 #c-e12c2c {
   background-color: #e12c2c;
 }

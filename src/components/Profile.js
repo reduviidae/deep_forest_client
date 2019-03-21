@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Container, List, Button, Form, Input } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+// import GameList from './GameList';
 // import Cable from '../ActionCable/Cable'
 
 
@@ -40,22 +41,37 @@ class Profile extends Component {
 
   newGame = (e, data) => {
     e.preventDefault()
-    console.log(data.value)
-    // fetch(`${API_ROOT}games`, {
-    //   method: `POST`,
-    //   headers: AUTH_HEADERS,
-    //   body: JSON.stringify({
-    //     title:
-    //   })
-    // })
+    fetch(`${API_ROOT}games`, {
+      method: `POST`,
+      headers: AUTH_HEADERS,
+      body: JSON.stringify({
+        title: this.state.gameTitle
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      fetch(`${API_ROOT}user_games`, {
+        method: `POST`,
+        headers: AUTH_HEADERS,
+        body: JSON.stringify({
+          game_id: data.id,
+          user_id: this.props.state.userState.id
+        })
+      })
+      .then(r => r.json())
+      .then(this.props.addGame)
+    })
   }
 
   render (){
-    console.log(this.props.state.userState.user)
+    console.log(this.props.state)
     const userGames = !!this.props.state.userState.games &&
-        this.props.state.userState.games.map(game => <List.Item key={game.id}>{game.title}</List.Item>)
-
-
+        this.props.state.userState.games.map(game => <Link key={`game=${game.id}`} game={game} to={`/game/${game.id}`}>{game.title}</Link>)
+    if (!this.props.state.loggedIn) {
+      return (
+        <Redirect to="/" />
+      )
+    } else {
       return (
         <Container>
           <h2>{this.props.state.userState.name}</h2>
@@ -79,7 +95,10 @@ class Profile extends Component {
             null
           }
       </Container>
-    )}
+    )
+    }
+
+    }
   }
 
 const mapStateToProps = state => {
@@ -88,7 +107,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    profile: data => dispatch({ type: "SHOW_USER", payload: data })
+    profile: data => dispatch({ type: "SHOW_USER", payload: data }),
+    addGame: data => dispatch({ type: "ADD_GAME", payload: data })
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'semantic-ui-react';
-import { SUB_KEY, PUB_KEY } from '../constants';
+import { API_ROOT, AUTH_HEADERS, SUB_KEY, PUB_KEY } from '../constants';
 
 class Canvas extends Component {
 
@@ -13,13 +13,27 @@ class Canvas extends Component {
   }
 
   componentDidMount() {
+
   }
+
+
 
   drawToTrue = e => {
     this.setState({ draw: true })
   }
 
   drawToFalse = e => {
+    fetch(`${API_ROOT}drawings`, {
+      method: `PATCH`,
+      headers: AUTH_HEADERS,
+      body: JSON.stringify({
+        draw: true,
+        color: this.state.color,
+        lineWidth: this.state.lineWidth,
+        plots: this.state.plots,
+        id: this.props.currentGame.drawing.id
+      })
+    })
     this.setState({
       draw: false,
       plots: [{x: NaN, y: NaN}]
@@ -86,8 +100,6 @@ class Canvas extends Component {
   }
 
   render (){
-
-
     return (
       <Container>
         <div id="canvas"
@@ -136,4 +148,10 @@ class Canvas extends Component {
   }
 }
 
-export default connect()(Canvas);
+const mapStateToProps = state => {
+  return (
+    state
+  )
+}
+
+export default connect(mapStateToProps)(Canvas);

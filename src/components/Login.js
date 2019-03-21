@@ -29,13 +29,14 @@ class Login extends Component {
     .then(data => {
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
-      this.props.login(data)
+      !!data.jwt && this.props.login(data)
     })
     .catch(console.error)
   };
 
 
   render() {
+    console.log(this.props.state.loggedIn)
     if (this.props.state.loggedIn){
       return (
         <Redirect to="/profile" />

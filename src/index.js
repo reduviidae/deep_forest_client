@@ -8,6 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import initReducer from './reducers/initReducer';
+import ActionCable from 'actioncable'
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { CABLE } from './constants';
 
@@ -18,9 +19,11 @@ const store = createStore(initReducer,
   applyMiddleware(thunk)
 ));
 
+const cable = ActionCable.createConsumer(CABLE)
+
 
 ReactDOM.render(
-  <ActionCableProvider url={CABLE}>
+  <ActionCableProvider cable={cable}>
   <Provider store={store}>
     <BrowserRouter>
       <App />

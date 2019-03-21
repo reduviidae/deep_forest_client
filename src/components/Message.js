@@ -4,7 +4,7 @@ import React from 'react';
 const Message = props => {
 
   return (
-      <p>{props}</p>
+      <p className="message-text">{props.message.content}</p>
   )
 }
 

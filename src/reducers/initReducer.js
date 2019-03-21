@@ -9,7 +9,10 @@ const initialState = {
       messages: [],
       games: []
     },
-    loggedIn: false
+    loggedIn: false,
+    newGame: {},
+    currentGame: {},
+    messages: []
   }
 }
 
@@ -23,7 +26,7 @@ const initReducer = (state = initialState, action) => {
       }
       break;
     case "SHOW_USER":
-    console.log(action.payload)
+    console.log("SHOW_USER",action.payload)
       return {
         ...state,
         userState: action.payload,
@@ -31,11 +34,23 @@ const initReducer = (state = initialState, action) => {
       }
     break;
     case "LOAD_MSGS":
-    console.log(action.payload)
+    console.log("LOAD_MSGS", action.payload)
       return {
         ...state,
-        games: action.payload
+        messages: action.payload
       }
+      case "ADD_GAME":
+      console.log("ADD_GAME",action.payload)
+        return {
+          ...state,
+          newGame: action.payload
+        }
+        case "CUR_GAME":
+        console.log("CUR_GAME",action.payload)
+          return {
+            ...state,
+            currentGame: action.payload
+          }
     default:
       return state;
   }
