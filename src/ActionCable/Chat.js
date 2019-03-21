@@ -15,29 +15,29 @@ class Chat extends Component {
   }
 // *************************************************************
 
-componentWillMount() {
-    const { game_id } = this.props;
-
-    const messageChannel = new messagesSubscription({
-      game_id,
-      onUpdate: this.onMessageUpdate,
-    });
-
-    messageChannel.subscribe();
-  }
-
-  onMessageUpdate = (data) => {
-    console.log("onMessageUpdate", data)
-    this.props.loadMessages(data);
-  }
-
+// componentWillMount() {
+//     const { game_id } = this.props;
+//
+//     const messageChannel = new messagesSubscription({
+//       game_id,
+//       onUpdate: this.onMessageUpdate,
+//     });
+//
+//     messageChannel.subscribe();
+//   }
+//
+//   onMessageUpdate = (data) => {
+//     console.log("onMessageUpdate", data)
+//     this.props.loadMessages(data);
+//   }
+//
 
 // *************************************************************
 
 
 
   componentDidMount(){
-    // this.fetchGameData()
+    this.fetchGameData()
 
   }
 

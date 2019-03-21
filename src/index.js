@@ -23,7 +23,7 @@ const cable = ActionCable.createConsumer(CABLE)
 
 
 ReactDOM.render(
-  <ActionCableProvider cable={cable}>
+  <ActionCableProvider url={CABLE}>
   <Provider store={store}>
     <BrowserRouter>
       <App />

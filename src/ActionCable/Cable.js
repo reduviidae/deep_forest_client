@@ -1,5 +1,4 @@
-import ActionCable from 'actioncable'
-import { ActionCableConsumer } from 'react-actioncable-provider';
+import { ActionCable } from 'react-actioncable-provider';
 import React, { Component, Fragment } from 'react';
 import { CABLE, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
@@ -8,12 +7,13 @@ import Message from '../components/Message';
 class Cable extends Component {
 
   render () {
+    console.log("Cable.js")
     return (
       <Fragment>
-        <ActionCableConsumer
+        <ActionCable
           key={this.props.game_id}
           channel={{ channel: "MessagesChannel", game_id: this.props.game_id }}
-          onReceived={this.props.getMessages}
+          onReceived={(data) => this.props.getMessages}
         />
     </Fragment>
     )
