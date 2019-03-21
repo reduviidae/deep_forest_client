@@ -6,13 +6,12 @@ const initialState = {
       name: "",
       pronouns: "",
       user_games: [],
-      // messages: [],
+      messages: [],
       games: []
     },
     loggedIn: false,
     newGame: {},
     currentGame: {},
-    messages: []
   }
 }
 
@@ -31,11 +30,11 @@ const initReducer = (state = initialState, action) => {
         userState: action.payload,
         loggedIn: true
       }
-    case "LOAD_MSGS":
-    console.log("LOAD_MSGS", action.payload)
+    case "LOAD_GAMES":
+    console.log("LOAD_GAMES", action.payload)
       return {
         ...state,
-        messages: action.payload
+        games: action.payload
       }
       case "ADD_GAME":
       console.log("ADD_GAME",action.payload)
@@ -53,7 +52,12 @@ const initReducer = (state = initialState, action) => {
         console.log("UP_MSG",action.payload)
           return {
             ...state,
-            userState: { ...state.userState, messages: [...state.userState.messages, action.payload]}
+            userState: { ...state.userState,
+              user: {
+                ...state.userState.user,
+                messages: [...state.userState.user.messages, action.payload]
+              }
+            }
 
           }
     default:

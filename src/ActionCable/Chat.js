@@ -15,16 +15,7 @@ class Chat extends Component {
 
 
   componentDidMount(){
-    this.fetchGameData()
-  }
 
-  fetchGameData = () => {
-    fetch(`${API_ROOT}messages`, {
-      method: `GET`,
-      headers: AUTH_HEADERS,
-    })
-    .then(r => r.json())
-    .then(this.props.loadMessages)
   }
 
   typeMessage = (e, data) => {
@@ -32,14 +23,13 @@ class Chat extends Component {
   }
 
   sendMessage = e => {
-    console.log("sendMessage called")
     e.preventDefault();
     fetch(`${API_ROOT}messages`, {
       method: `POST`,
       headers: AUTH_HEADERS,
       body: JSON.stringify({
         game_id: this.props.game_id,
-        user_id: this.props.state.userState.id,
+        user_id: this.props.state.userState.user.id,
         content: this.state.newmessage
       })
     })
@@ -48,8 +38,8 @@ class Chat extends Component {
 
 
   render (){
-    console.log(this.props.state.userState.messages)
-    const messages = this.props.state.userState.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
+    console.log(this.props.state)
+    const messages = this.props.state.userState.user.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>
         <ul>
@@ -72,7 +62,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadMessages: data => dispatch({ type: "LOAD_MSGS", payload: data })
+    loadGames: data => dispatch({ type: "LOAD_GAMES", payload: data })
   }
 }
 
