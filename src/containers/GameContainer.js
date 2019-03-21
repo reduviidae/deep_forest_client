@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Container, List, Button, Form, Input } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // components
 import Canvas from "../components/Canvas";
@@ -13,7 +13,7 @@ class GameContainer extends Component {
 
 
   componentDidMount(){
-    this.fetchGame()
+    // this.fetchGame()
   }
 
   fetchGame = () => {

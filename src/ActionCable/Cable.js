@@ -7,13 +7,17 @@ import Message from '../components/Message';
 class Cable extends Component {
 
   render () {
-    console.log("Cable.js")
+    console.log(this.props)
     return (
       <Fragment>
         <ActionCable
           key={this.props.game_id}
           channel={{ channel: "MessagesChannel", game_id: this.props.game_id }}
-          onReceived={(data) => this.props.getMessages}
+          onReceived={(data) => {
+            console.log(data)
+            console.log(this.props.getMessages)
+            this.props.getMessages(data)
+          }}
         />
     </Fragment>
     )
