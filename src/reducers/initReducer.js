@@ -6,7 +6,7 @@ const initialState = {
       name: "",
       pronouns: "",
       user_games: [],
-      messages: [],
+      // messages: [],
       games: []
     },
     loggedIn: false,

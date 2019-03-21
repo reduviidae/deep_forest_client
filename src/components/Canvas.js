@@ -23,21 +23,23 @@ class Canvas extends Component {
   }
 
   drawToFalse = e => {
-    fetch(`${API_ROOT}drawings`, {
-      method: `PATCH`,
-      headers: AUTH_HEADERS,
-      body: JSON.stringify({
-        draw: true,
-        color: this.state.color,
-        lineWidth: this.state.lineWidth,
-        plots: this.state.plots,
-        id: this.props.currentGame.drawing.id
+    if(!!this.props.currentGame.drawing){
+      fetch(`${API_ROOT}drawings`, {
+        method: `PATCH`,
+        headers: AUTH_HEADERS,
+        body: JSON.stringify({
+          draw: true,
+          color: this.state.color,
+          lineWidth: this.state.lineWidth,
+          plots: this.state.plots,
+          id: this.props.currentGame.drawing.id
+        })
       })
-    })
-    this.setState({
-      draw: false,
-      plots: [{x: NaN, y: NaN}]
-     })
+    }
+    // this.setState({
+    //   draw: false,
+    //   plots: [{x: NaN, y: NaN}]
+    //  })
   }
 
   drawOnCanvas = (plots) => {

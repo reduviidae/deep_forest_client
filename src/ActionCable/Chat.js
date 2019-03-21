@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Container, Button, Input, Form } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Cable from './Cable'
 import Message from '../components/Message'
 
-//helpers
-import messagesSubscription from "../ActionCable/messagessubscription";
 
 class Chat extends Component {
   state ={
@@ -19,7 +16,6 @@ class Chat extends Component {
 
   componentDidMount(){
     this.fetchGameData()
-
   }
 
   fetchGameData = () => {
@@ -46,7 +42,6 @@ class Chat extends Component {
         content: this.state.newmessage
       })
     })
-    .then(r => console.log("sendMessage first then", r))
     .then(() => this.setState({ newmessage: "" }))
   }
 
@@ -61,7 +56,7 @@ class Chat extends Component {
         <Cable game_id={this.props.game_id}/>
         <div id="new-message-box">
           <Form onSubmit={this.sendMessage}>
-            <Input size="big" Input focus type="textarea" name="newmessage" onChange={this.typeMessage}/>
+            <Input size="big" Input focus value={this.state.newmessage} type="textarea" name="newmessage" onChange={this.typeMessage}/>
             <Button>Send Message</Button>
           </Form>
         </div>

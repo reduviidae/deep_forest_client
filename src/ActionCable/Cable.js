@@ -8,7 +8,6 @@ class Cable extends Component {
 
   render () {
     console.log(this.props)
-    debugger;
     return (
       <Fragment>
         <ActionCable
@@ -17,7 +16,7 @@ class Cable extends Component {
           onReceived={(data) => {
             console.log(data)
             console.log(this.props.getMessages)
-            this.props.getMessages(data)
+            this.props.getMessages(data.message)
           }}
         />
     </Fragment>
