@@ -32,6 +32,7 @@ class Chat extends Component {
   }
 
   sendMessage = e => {
+    console.log("sendMessage called")
     e.preventDefault();
     fetch(`${API_ROOT}messages`, {
       method: `POST`,
@@ -47,6 +48,7 @@ class Chat extends Component {
 
 
   render (){
+    console.log(this.props.state.userState.messages)
     const messages = this.props.state.userState.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>

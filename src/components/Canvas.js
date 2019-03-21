@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'semantic-ui-react';
-import { API_ROOT, AUTH_HEADERS, SUB_KEY, PUB_KEY } from '../constants';
+import { API_ROOT, AUTH_HEADERS } from '../constants';
 
 class Canvas extends Component {
 
@@ -36,10 +36,10 @@ class Canvas extends Component {
         })
       })
     }
-    // this.setState({
-    //   draw: false,
-    //   plots: [{x: NaN, y: NaN}]
-    //  })
+    this.setState({
+      draw: false,
+      plots: [{x: NaN, y: NaN}]
+     })
   }
 
   drawOnCanvas = (plots) => {

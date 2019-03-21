@@ -13,7 +13,7 @@ class GameContainer extends Component {
 
 
   componentDidMount(){
-    // this.fetchGame()
+    this.fetchGame()
   }
 
   fetchGame = () => {
