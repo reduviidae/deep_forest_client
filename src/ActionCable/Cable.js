@@ -8,6 +8,7 @@ class Cable extends Component {
 
   render () {
     console.log(this.props)
+    debugger;
     return (
       <Fragment>
         <ActionCable
@@ -30,7 +31,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMessages: data => dispatch({ type: "LOAD_MSGS", payload: data })
+    getMessages: data => dispatch({ type: "UP_MSG", payload: data })
   }
 }
 

@@ -11,28 +11,9 @@ import messagesSubscription from "../ActionCable/messagessubscription";
 
 class Chat extends Component {
   state ={
-    newmessge: ""
+    newmessage: ""
   }
-// *************************************************************
 
-// componentWillMount() {
-//     const { game_id } = this.props;
-//
-//     const messageChannel = new messagesSubscription({
-//       game_id,
-//       onUpdate: this.onMessageUpdate,
-//     });
-//
-//     messageChannel.subscribe();
-//   }
-//
-//   onMessageUpdate = (data) => {
-//     console.log("onMessageUpdate", data)
-//     this.props.loadMessages(data);
-//   }
-//
-
-// *************************************************************
 
 
 
@@ -47,11 +28,11 @@ class Chat extends Component {
       headers: AUTH_HEADERS,
     })
     .then(r => r.json())
-    .then(this.props.getMessages)
+    .then(this.props.loadMessages)
   }
 
   typeMessage = (e, data) => {
-    this.setState({ newmessge: data.value })
+    this.setState({ newmessage: data.value })
   }
 
   sendMessage = e => {
@@ -62,11 +43,11 @@ class Chat extends Component {
       body: JSON.stringify({
         game_id: this.props.game_id,
         user_id: this.props.state.userState.id,
-        content: this.state.newmessge
+        content: this.state.newmessage
       })
     })
     .then(r => console.log("sendMessage first then", r))
-    .then(() => this.setState({ newmessge: "" }))
+    .then(() => this.setState({ newmessage: "" }))
   }
 
 
@@ -80,7 +61,7 @@ class Chat extends Component {
         <Cable game_id={this.props.game_id}/>
         <div id="new-message-box">
           <Form onSubmit={this.sendMessage}>
-            <Input size="big" Input focus type="textarea" name="newmessge" onChange={this.typeMessage}/>
+            <Input size="big" Input focus type="textarea" name="newmessage" onChange={this.typeMessage}/>
             <Button>Send Message</Button>
           </Form>
         </div>

@@ -24,7 +24,6 @@ const initReducer = (state = initialState, action) => {
         userState: action.payload,
         loggedIn: true
       }
-      break;
     case "SHOW_USER":
     console.log("SHOW_USER",action.payload)
       return {
@@ -32,7 +31,6 @@ const initReducer = (state = initialState, action) => {
         userState: action.payload,
         loggedIn: true
       }
-    break;
     case "LOAD_MSGS":
     console.log("LOAD_MSGS", action.payload)
       return {
@@ -50,6 +48,13 @@ const initReducer = (state = initialState, action) => {
           return {
             ...state,
             currentGame: action.payload
+          }
+        case "UP_MSG":
+        console.log("UP_MSG",action.payload)
+          return {
+            ...state,
+            userState: { ...state.userState, messages: [...state.userState.messages, action.payload]}
+
           }
     default:
       return state;
