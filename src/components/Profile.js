@@ -20,7 +20,7 @@ class Profile extends Component {
   }
 
   fetchUserData = () => {
-    if(!!this.props.state.userState){
+    if(!!this.props.state.userState.loggedIn){
       fetch(`${API_ROOT}users/${this.props.state.userState.user.id}`, {
         method: `GET`,
         headers: AUTH_HEADERS,
@@ -65,8 +65,8 @@ class Profile extends Component {
 
   render (){
     console.log(this.props.state)
-    const userGames = !!this.props.state.userState.games &&
-        this.props.state.userState.games.map(game => <Link key={`game=${game.id}`} game={game} to={`/game/${game.id}`}>{game.title}</Link>)
+    const userGames = !!this.props.state.userState.user.games &&
+        this.props.state.userState.user.games.map(game => <Link key={`game=${game.id}`} game={game} to={`/game/${game.id}`}>{game.title}</Link>)
     if (!this.props.state.loggedIn) {
       return (
         <Redirect to="/" />

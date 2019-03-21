@@ -8,7 +8,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import initReducer from './reducers/initReducer';
-import ActionCable from 'actioncable'
 import { ActionCableProvider } from 'react-actioncable-provider';
 import { CABLE } from './constants';
 
@@ -18,8 +17,6 @@ const store = createStore(initReducer,
   composeEnhancers(
   applyMiddleware(thunk)
 ));
-
-const cable = ActionCable.createConsumer(CABLE)
 
 
 ReactDOM.render(

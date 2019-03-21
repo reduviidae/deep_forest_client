@@ -1,8 +1,7 @@
 import { ActionCable } from 'react-actioncable-provider';
 import React, { Component, Fragment } from 'react';
-import { CABLE, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
-import Message from '../components/Message';
+
 
 class Cable extends Component {
 
@@ -13,7 +12,10 @@ class Cable extends Component {
         <ActionCable
           key={this.props.game_id}
           channel={{ channel: "MessagesChannel", game_id: this.props.game_id }}
-          onReceived={(data) => this.props.getMessages}
+          onReceived={(data) => {
+            console.log("onReceived called", data);
+            this.props.getMessages(data)
+          }}
         />
     </Fragment>
     )

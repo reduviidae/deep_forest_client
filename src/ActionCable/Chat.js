@@ -2,39 +2,14 @@ import React, { Component } from 'react';
 import { Container, Button, Input, Form } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import Cable from './Cable'
 import Message from '../components/Message'
 
-//helpers
-import messagesSubscription from "../ActionCable/messagessubscription";
 
 class Chat extends Component {
   state ={
-    newmessge: ""
+    newmessage: ""
   }
-// *************************************************************
-
-// componentWillMount() {
-//     const { game_id } = this.props;
-//
-//     const messageChannel = new messagesSubscription({
-//       game_id,
-//       onUpdate: this.onMessageUpdate,
-//     });
-//
-//     messageChannel.subscribe();
-//   }
-//
-//   onMessageUpdate = (data) => {
-//     console.log("onMessageUpdate", data)
-//     this.props.loadMessages(data);
-//   }
-//
-
-// *************************************************************
-
-
 
   componentDidMount(){
     this.fetchGameData()
@@ -51,7 +26,7 @@ class Chat extends Component {
   }
 
   typeMessage = (e, data) => {
-    this.setState({ newmessge: data.value })
+    this.setState({ newmessage: data.value })
   }
 
   sendMessage = e => {
@@ -62,16 +37,16 @@ class Chat extends Component {
       body: JSON.stringify({
         game_id: this.props.game_id,
         user_id: this.props.state.userState.id,
-        content: this.state.newmessge
+        content: this.state.newmessage
       })
     })
     .then(r => console.log("sendMessage first then", r))
-    .then(() => this.setState({ newmessge: "" }))
+    .then(() => this.setState({ newmessage: "" }))
   }
 
 
   render (){
-    const messages = this.props.state.userState.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
+    const messages = this.props.state.userState.user.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>
         <ul>
@@ -80,7 +55,7 @@ class Chat extends Component {
         <Cable game_id={this.props.game_id}/>
         <div id="new-message-box">
           <Form onSubmit={this.sendMessage}>
-            <Input size="big" Input focus type="textarea" name="newmessge" onChange={this.typeMessage}/>
+            <Input size="big" Input focus type="textarea" name="newmessage" onChange={this.typeMessage}/>
             <Button>Send Message</Button>
           </Form>
         </div>
