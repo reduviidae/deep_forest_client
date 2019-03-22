@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 const WelcomePath = () => {
 return (
   <div id="welcome-box">
-    <h1>Welcome to this drawing app</h1>
+    <h1 className="lead-text centered-text">Welcome to this drawing app</h1>
       <div className="centered-container">
         <Button basic color='olive'>
           <Link to={`/login`}>

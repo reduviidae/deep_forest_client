@@ -31,7 +31,6 @@ class Profile extends Component {
   }
 
   gameForm = () => {
-    console.log(this.state.gameForm)
     this.setState({ gameForm: !this.state.gameForm })
   }
 
@@ -73,16 +72,18 @@ class Profile extends Component {
       )
     } else {
       return (
-        <Container>
-          <h2>{this.props.state.userState.name}</h2>
+        <Container id="profile-container">
+          <div id="show-profile">
+          <h2>Welcome back, {this.props.state.userState.user.name}</h2>
           <h3>Games:</h3>
           <List className="user-games">
             {userGames}
           </List>
           <Button onClick={this.gameForm}>New Game</Button>
+          </div>
           <br />
           {this.state.gameForm ?
-            <Container>
+            <Container id="new-game-form">
               <br/>
               <Form onSubmit={this.newGame}>
                 <Form.Field>

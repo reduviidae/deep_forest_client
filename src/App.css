@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro|Arsenal|Barrio');
+
+body {
+  font-family: 'Arsenal', sans-serif;
+}
+
+.lead-text {
+  font-family: 'Barrio', cursive;
+}
+
+.centered-text {
+  text-align: center;
+}
+
 #start-container {
   grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
   grid-template-rows: 20%, 60%, 20%;
@@ -11,19 +25,21 @@
   border: solid;
 }
 
+#profile-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr 4fr 1fr 2fr;
+}
+
+#show-profile {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
 .centered-container {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.welcome-button {
-  height: 30px;
-  width: 75px;
-  text-align: center;
-  border-radius: 100%;
-  background: rgb(11,68,0);
-  background: linear-gradient(0deg, rgba(11,68,0,1) 0%, rgba(54,156,46,1) 35%, rgba(95,255,178,1) 100%);
 }
 
 .hidden {
@@ -80,11 +96,14 @@ canvas {
 
 }
 
+.chat-text {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 0.75em;
+}
+
 #new-message-box {
-  margin: 55px;
+  margin: 40px;
   padding: 5px;
-  height: 50px;
-  width: 300px;
 }
 
 .message-text {

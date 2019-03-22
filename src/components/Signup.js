@@ -20,7 +20,6 @@ class Signup extends Component {
   onSubmitHandler = e => {
     e.preventDefault();
     let user = { name: this.state.name, pronouns: this.state.pronouns, password: this.state.password }
-    console.log(user)
     fetch(`${API_ROOT}users`, {
       method: `POST`,
       headers: BASIC_HEADERS,
@@ -28,7 +27,6 @@ class Signup extends Component {
     })
     .then(r => r.json())
     .then(data => {
-      console.log("authenticateUser POST to login", data)
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
       this.props.login(data)

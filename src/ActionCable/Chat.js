@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, Input, Form } from 'semantic-ui-react';
+import { Container, Button, TextArea, Form } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
 import Cable from './Cable'
@@ -32,14 +32,16 @@ class Chat extends Component {
         content: this.state.newmessage
       })
     })
-    .then(() => setTimeout(this.setState({ newmessage: "" }), 5000))
+    .then(() => this.setState({ newmessage: "" }))
   }
 
 
   render (){
-    const sortedMessages = !!this.props.state.currentGame && this.props.state.currentGame.messages.sort(function(a, b){
-          var keyA = new Date(a.created_at),
-              keyB = new Date(b.created_at);
+    console.log("Chat.js, this.props.state.currentGame: ", this.props.state.currentGame)
+    console.log(this.props.state.currentGame.messages)
+    const sortedMessages = !!this.props.state.currentGame.messages && this.props.state.currentGame.messages.sort(function(a, b){
+          let keyA = new Date(a.created_at);
+          let keyB = new Date(b.created_at);
           // Compare the 2 dates
           if(keyA < keyB) return -1;
           if(keyA > keyB) return 1;
@@ -49,13 +51,14 @@ class Chat extends Component {
     const messages = !!sortedMessages && sortedMessages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>
-        <ul>
+        <ul className="chat-text" id="chat-message-box">
         {messages}
         </ul>
         <Cable game_id={this.props.game_id}/>
-        <div id="new-message-box">
+        <div className="chat-text" id="new-message-box">
           <Form onSubmit={this.sendMessage}>
-            <Input size="big" focus value={this.state.newmessage} type="textarea" name="newmessage" onChange={this.typeMessage}/>
+            <TextArea value={this.state.newmessage} style={{ minHeight: 100, minWidth: 200 }} name="newmessage" onChange={this.typeMessage}/>
+            <br/>
             <Button>Send Message</Button>
           </Form>
         </div>

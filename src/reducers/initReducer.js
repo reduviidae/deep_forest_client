@@ -9,17 +9,18 @@ const initialState = {
       messages: [],
       games: []
     },
-    drawingState: {
-      draw: false,
-      plots: [{x: NaN, y: NaN}],
-      color: "#1b1b1b",
-      lineWidth: 5
     },
     loggedIn: false,
     newGame: {},
-    currentGame: {},
+    currentGame: {
+      messages: []
   },
-  drawing:{},
+  drawingState: {
+    draw: false,
+    plots: [{x: NaN, y: NaN}],
+    color: "#1b1b1b",
+    lineWidth: 5
+  }
 }
 
 
@@ -27,6 +28,7 @@ const initReducer = (state = initialState, action) => {
   switch (action.type){
     case "AUTH_USER":
       return {
+        ...state,
         userState: action.payload,
         loggedIn: true
       }
@@ -52,24 +54,20 @@ const initReducer = (state = initialState, action) => {
             currentGame: action.payload
           }
         case "UP_MSG":
-        console.log("UP_MSG",action.payload)
-          return {
-            ...state,
-            userState: { ...state.userState,
-              user: {
-                ...state.userState.user,
-                messages: [...state.userState.user.messages, action.payload]
+          console.log("UP_MSG", action.payload);
+            return {
+              ...state,
+              currentGame: {
+                messages: [ ...state.currentGame.messages, action.payload]
               }
             }
-          }
         case "CABLE_DRAW":
-        console.log("CABLE_DRAW", action.payload)
+          console.log("CABLE_DRAW", action.payload)
           return {
             ...state,
             drawingState: action.payload
           }
         case "START_DRAW":
-        console.log("START_DRAW", action.payload)
           return {
             ...state,
             drawingState: {
@@ -78,12 +76,28 @@ const initReducer = (state = initialState, action) => {
             }
           }
           case "END_DRAW":
-          console.log("END_DRAW", action.payload)
           return {
             ...state,
             drawingState: {
               ...state.drawingState,
-              draw: false
+              draw: false,
+              plots: [{x: NaN, y: NaN}]
+            }
+          }
+          case "COLOR":
+          return {
+            ...state,
+            drawingState: {
+              ...state.drawingState,
+              color: action.payload
+            }
+          }
+          case "PLOTS":
+          return {
+            ...state,
+            drawingState: {
+              ...state.drawingState,
+              plots: action.payload
             }
           }
     default:

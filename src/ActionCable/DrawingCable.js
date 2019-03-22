@@ -6,15 +6,13 @@ import { connect } from 'react-redux';
 class DrawingCable extends Component {
 
   render () {
-    console.log(this.props)
     return (
       <Fragment>
         <ActionCable
           key={this.props.game_id}
           channel={{ channel: "DrawingsChannel", game_id: this.props.game_id }}
           onReceived={(data) => {
-            console.log(data)
-            console.log(this.props.getDrawing)
+            console.log("DrawingChannel recvd data: ",data)
             this.props.getDrawing(data)
           }}
         />

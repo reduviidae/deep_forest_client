@@ -12,41 +12,31 @@ class Canvas extends Component {
 
   }
 
-
-
-  drawToTrue = e => {
-    this.setState({ draw: true })
-  }
-
   drawToFalse = e => {
-    console.log(Array.isArray(this.state.plots))
-    if(!!this.props.currentGame.drawing){
+    if(!!this.props.drawingState.drawing){
       fetch(`${API_ROOT}drawings`, {
         method: `PATCH`,
         headers: AUTH_HEADERS,
         body: JSON.stringify({
           draw: true,
-          color: this.state.color,
-          lineWidth: this.state.lineWidth,
-          plots: this.state.plots,
+          color: this.props.drawingState.color,
+          lineWidth: this.props.drawingState.lineWidth,
+          plots: this.props.drawingState.plots,
           id: this.props.currentGame.drawing.id,
           game_id: this.props.currentGame.id
         })
       })
     }
-    this.setState({
-      draw: false,
-      plots: [{x: NaN, y: NaN}]
-     })
+    this.props.drawToFalse()
   }
 
   drawOnCanvas = (plots) => {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d")
     ctx.miterLimit = 0.25;
-    ctx.lineWidth = this.state.lineWidth;
+    ctx.lineWidth = this.props.drawingState.lineWidth;
     ctx.lineJoin = "round";
-    ctx.strokeStyle = this.state.color;
+    ctx.strokeStyle = this.props.drawingState.color;
     ctx.imageSmoothingQuality = "high";
     ctx.beginPath();
     ctx.moveTo(plots[0].x, plots[0].y);
@@ -69,18 +59,18 @@ class Canvas extends Component {
 }
 
   draw = e => {
-    if(this.props.state.drawState.draw){
+    if(this.props.drawingState.draw){
       let position = this.getMousePos(e)
-      let plots = [...this.state.plots]
+      let plots = [...this.props.drawingState.plots]
       plots.push(position);
-      this.setState({ plots })
+      this.props.setPlots(plots)
       this.drawOnCanvas(plots);
     }
   }
 
   changeColor = e => {
     let color = `#${e.target.id}`.replace("c-", "")
-    this.setState({ color })
+    this.props.changeColor(color)
   }
 
   changeSize = e => {
@@ -100,13 +90,12 @@ class Canvas extends Component {
   }
 
   render (){
-    console.log(this.props);
     return (
       <Container>
         <DrawingCable game_id={this.props.game_id}/>
         <div id="canvas"
         onMouseDown={this.props.drawToTrue}
-        onMouseUp={this.props.drawToFalse}
+        onMouseUp={this.drawToFalse}
         onMouseMove={this.draw}
         >
           <canvas ref="canvas" width={800} height={700}/>
@@ -158,8 +147,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    drawToTrue: data => dispatch({ type: "START_DRAW", payload: data }),
-    drawToFalse: data => dispatch({ type: "END_DRAW", payload: data})
+    drawToTrue: data => dispatch({ type: "START_DRAW" }),
+    drawToFalse: data => dispatch({ type: "END_DRAW" }),
+    changeColor: data => dispatch({ type: "COLOR", payload: data }),
+    setPlots: data => dispatch({ type: "PLOTS", payload: data })
   }
 }
 
