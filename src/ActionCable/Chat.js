@@ -33,13 +33,23 @@ class Chat extends Component {
         content: this.state.newmessage
       })
     })
-    .then(() => this.setState({ newmessage: "" }))
+    .then(() => setTimeout(this.setState({ newmessage: "" }), 5000))
   }
 
 
   render (){
-    console.log(this.props.state)
-    const messages = this.props.state.userState.user.messages.map(message => <Message key={`message=${message.id}`} message={message} />)
+
+
+    const sortedMessages = this.props.state.userState.user.messages.sort(function(a, b){
+          var keyA = new Date(a.created_at),
+              keyB = new Date(b.created_at);
+          // Compare the 2 dates
+          if(keyA < keyB) return -1;
+          if(keyA > keyB) return 1;
+          return 0;
+      }).slice(-10);
+
+    const messages = sortedMessages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>
         <ul>
@@ -48,7 +58,7 @@ class Chat extends Component {
         <Cable game_id={this.props.game_id}/>
         <div id="new-message-box">
           <Form onSubmit={this.sendMessage}>
-            <Input size="big" Input focus value={this.state.newmessage} type="textarea" name="newmessage" onChange={this.typeMessage}/>
+            <Input size="big" focus value={this.state.newmessage} type="textarea" name="newmessage" onChange={this.typeMessage}/>
             <Button>Send Message</Button>
           </Form>
         </div>

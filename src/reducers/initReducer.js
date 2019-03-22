@@ -12,7 +12,8 @@ const initialState = {
     loggedIn: false,
     newGame: {},
     currentGame: {},
-  }
+  },
+  drawing:{},
 }
 
 
@@ -24,26 +25,22 @@ const initReducer = (state = initialState, action) => {
         loggedIn: true
       }
     case "SHOW_USER":
-    console.log("SHOW_USER",action.payload)
       return {
         ...state,
         userState: action.payload,
         loggedIn: true
       }
     case "LOAD_GAMES":
-    console.log("LOAD_GAMES", action.payload)
       return {
         ...state,
         games: action.payload
       }
       case "ADD_GAME":
-      console.log("ADD_GAME",action.payload)
         return {
           ...state,
           newGame: action.payload
         }
         case "CUR_GAME":
-        console.log("CUR_GAME",action.payload)
           return {
             ...state,
             currentGame: action.payload
@@ -58,7 +55,12 @@ const initReducer = (state = initialState, action) => {
                 messages: [...state.userState.user.messages, action.payload]
               }
             }
-
+          }
+        case "DRAW":
+        console.log("DRAW", action.payload)
+          return {
+            ...state,
+            drawing: action.payload
           }
     default:
       return state;

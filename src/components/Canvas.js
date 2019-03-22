@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS } from '../constants';
+import DrawingCable from '../ActionCable/DrawingCable';
 
 class Canvas extends Component {
 
@@ -32,7 +33,8 @@ class Canvas extends Component {
           color: this.state.color,
           lineWidth: this.state.lineWidth,
           plots: this.state.plots,
-          id: this.props.currentGame.drawing.id
+          id: this.props.currentGame.drawing.id,
+          game_id: this.props.currentGame.id
         })
       })
     }
@@ -104,6 +106,7 @@ class Canvas extends Component {
   render (){
     return (
       <Container>
+        <DrawingCable game_id={this.props.game_id}/>
         <div id="canvas"
         onMouseDown={this.drawToTrue}
         onMouseUp={this.drawToFalse}
