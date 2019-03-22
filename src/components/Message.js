@@ -5,7 +5,7 @@ const Message = props => {
 console.log(props)
   return (
     <div className="message">
-      <h5>{props.state.userState.user.name}: </h5>
+      <h5>{props.message.user_name}: </h5>
       <p className="message-content">{props.message.content}</p>
     </div>
   )

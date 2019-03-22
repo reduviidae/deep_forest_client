@@ -30,6 +30,7 @@ class Chat extends Component {
       body: JSON.stringify({
         game_id: this.props.game_id,
         user_id: this.props.state.userState.user.id,
+        user_name: this.props.state.userState.user.name,
         content: this.state.newmessage
       })
     })
@@ -39,7 +40,7 @@ class Chat extends Component {
 
   render (){
 
-
+    console.log(this.props.state.userState.user.name)
     const sortedMessages = this.props.state.userState.user.messages.sort(function(a, b){
           var keyA = new Date(a.created_at),
               keyB = new Date(b.created_at);
