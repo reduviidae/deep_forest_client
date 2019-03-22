@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Message = props => {
-console.log(props.message.user_id)
-console.log(props.state.userState)
+console.log(props)
   return (
     <div className="message">
       <h5>{props.state.userState.user.name}: </h5>
