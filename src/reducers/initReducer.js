@@ -9,6 +9,12 @@ const initialState = {
       messages: [],
       games: []
     },
+    drawingState: {
+      draw: false,
+      plots: [{x: NaN, y: NaN}],
+      color: "#1b1b1b",
+      lineWidth: 5
+    },
     loggedIn: false,
     newGame: {},
     currentGame: {},
@@ -56,11 +62,29 @@ const initReducer = (state = initialState, action) => {
               }
             }
           }
-        case "DRAW":
-        console.log("DRAW", action.payload)
+        case "CABLE_DRAW":
+        console.log("CABLE_DRAW", action.payload)
           return {
             ...state,
-            drawing: action.payload
+            drawingState: action.payload
+          }
+        case "START_DRAW":
+        console.log("START_DRAW", action.payload)
+          return {
+            ...state,
+            drawingState: {
+              ...state.drawingState,
+              draw: true
+            }
+          }
+          case "END_DRAW":
+          console.log("END_DRAW", action.payload)
+          return {
+            ...state,
+            drawingState: {
+              ...state.drawingState,
+              draw: false
+            }
           }
     default:
       return state;

@@ -29,7 +29,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getDrawing: data => dispatch({ type: "DRAW", payload: data })
+    getDrawing: data => dispatch({ type: "CABLE_DRAW", payload: data })
   }
 }
 

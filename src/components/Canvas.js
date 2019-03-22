@@ -6,12 +6,7 @@ import DrawingCable from '../ActionCable/DrawingCable';
 
 class Canvas extends Component {
 
-  state ={
-    draw: false,
-    plots: [{x: NaN, y: NaN}],
-    color: "#1b1b1b",
-    lineWidth: 5
-  }
+
 
   componentDidMount() {
 
@@ -74,7 +69,7 @@ class Canvas extends Component {
 }
 
   draw = e => {
-    if(this.state.draw){
+    if(this.props.state.drawState.draw){
       let position = this.getMousePos(e)
       let plots = [...this.state.plots]
       plots.push(position);
@@ -105,12 +100,13 @@ class Canvas extends Component {
   }
 
   render (){
+    console.log(this.props);
     return (
       <Container>
         <DrawingCable game_id={this.props.game_id}/>
         <div id="canvas"
-        onMouseDown={this.drawToTrue}
-        onMouseUp={this.drawToFalse}
+        onMouseDown={this.props.drawToTrue}
+        onMouseUp={this.props.drawToFalse}
         onMouseMove={this.draw}
         >
           <canvas ref="canvas" width={800} height={700}/>
@@ -160,4 +156,11 @@ const mapStateToProps = state => {
   )
 }
 
-export default connect(mapStateToProps)(Canvas);
+const mapDispatchToProps = dispatch => {
+  return {
+    drawToTrue: data => dispatch({ type: "START_DRAW", payload: data }),
+    drawToFalse: data => dispatch({ type: "END_DRAW", payload: data})
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Canvas);
