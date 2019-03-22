@@ -12,8 +12,6 @@ class Chat extends Component {
   }
 
 
-
-
   componentDidMount(){
 
   }
@@ -39,9 +37,7 @@ class Chat extends Component {
 
 
   render (){
-
-    console.log(this.props.state.userState.user.name)
-    const sortedMessages = this.props.state.userState.user.messages.sort(function(a, b){
+    const sortedMessages = !!this.props.state.currentGame && this.props.state.currentGame.messages.sort(function(a, b){
           var keyA = new Date(a.created_at),
               keyB = new Date(b.created_at);
           // Compare the 2 dates
@@ -50,7 +46,7 @@ class Chat extends Component {
           return 0;
       }).slice(-10);
 
-    const messages = sortedMessages.map(message => <Message key={`message=${message.id}`} message={message} />)
+    const messages = !!sortedMessages && sortedMessages.map(message => <Message key={`message=${message.id}`} message={message} />)
       return (
         <Container>
         <ul>

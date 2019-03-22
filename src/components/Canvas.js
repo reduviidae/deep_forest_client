@@ -24,6 +24,7 @@ class Canvas extends Component {
   }
 
   drawToFalse = e => {
+    console.log(Array.isArray(this.state.plots))
     if(!!this.props.currentGame.drawing){
       fetch(`${API_ROOT}drawings`, {
         method: `PATCH`,
