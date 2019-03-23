@@ -46,7 +46,7 @@ class Chat extends Component {
           return 0;
       }).slice(-10);
 
-    const messages = !!sortedMessages && sortedMessages.map(message => <Message key={`message=${message.id}`} message={message} />)
+    const messages = !!sortedMessages && sortedMessages.map(message => <Message message={message} />)
       return (
         <Container>
         <ul className="chat-text" id="chat-message-box">

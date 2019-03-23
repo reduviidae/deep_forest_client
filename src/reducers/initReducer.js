@@ -55,12 +55,12 @@ const initReducer = (state = initialState, action) => {
           }
         case "UP_MSG":
           console.log("UP_MSG", action.payload);
-            return {
-              ...state,
-              currentGame: {
-                messages: [ ...state.currentGame.messages, action.payload]
-              }
+          return {
+            ...state,
+            currentGame: {
+              messages: [ ...state.currentGame.messages, action.payload]
             }
+          }
         case "CABLE_DRAW":
           console.log("CABLE_DRAW", action.payload)
           return {

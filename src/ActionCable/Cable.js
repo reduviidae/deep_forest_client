@@ -13,6 +13,7 @@ class Cable extends Component {
           channel={{ channel: "MessagesChannel", game_id: this.props.game_id }}
           onReceived={(data) => {
             console.log("MessagesChannel recvd data: ",data)
+            console.log(data.message.id)
             this.props.getMessages(data.message)
           }}
         />

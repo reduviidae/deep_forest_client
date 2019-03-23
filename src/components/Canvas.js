@@ -13,7 +13,7 @@ class Canvas extends Component {
   }
 
   drawToFalse = e => {
-    if(!!this.props.drawingState.drawing){
+    if(this.props.drawingState.draw){
       fetch(`${API_ROOT}drawings`, {
         method: `PATCH`,
         headers: AUTH_HEADERS,
@@ -25,8 +25,7 @@ class Canvas extends Component {
           id: this.props.currentGame.drawing.id,
           game_id: this.props.currentGame.id
         })
-      }).then(r => r.json())
-      .then(console.log)
+      }).then(console.log("finished patch request to /drawings"))
     }
     this.props.drawToFalse()
   }
