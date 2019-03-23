@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 class Cable extends Component {
 
   render () {
-    console.log(this.props.state)
     return (
       <Fragment>
         <ActionCable

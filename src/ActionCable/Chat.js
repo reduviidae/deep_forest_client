@@ -37,8 +37,6 @@ class Chat extends Component {
 
 
   render (){
-    console.log("Chat.js, this.props.state.currentGame: ", this.props.state.currentGame)
-    console.log(this.props.state.currentGame.messages)
     const sortedMessages = !!this.props.state.currentGame.messages && this.props.state.currentGame.messages.sort(function(a, b){
           let keyA = new Date(a.created_at);
           let keyB = new Date(b.created_at);

@@ -25,7 +25,8 @@ class Canvas extends Component {
           id: this.props.currentGame.drawing.id,
           game_id: this.props.currentGame.id
         })
-      })
+      }).then(r => r.json())
+      .then(console.log)
     }
     this.props.drawToFalse()
   }

@@ -12,7 +12,7 @@ class DrawingCable extends Component {
           key={this.props.game_id}
           channel={{ channel: "DrawingsChannel", game_id: this.props.game_id }}
           onReceived={(data) => {
-            console.log("DrawingChannel recvd data: ",data)
+            console.log("DrawingChannel recvd data: ", data)
             this.props.getDrawing(data)
           }}
         />
