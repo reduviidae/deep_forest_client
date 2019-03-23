@@ -9,20 +9,30 @@ class Canvas extends Component {
 
 
   componentDidMount() {
-
+    fetch(`${API_ROOT}drawings`, {
+      method: `GET`,
+      headers: AUTH_HEADERS
+    })
+    .then(r => r.json())
+    .then(data => {
+      let drawing = data.find(d => parseInt(d.game_id) === parseInt(this.props.game_id))
+      console.log(drawing)
+      this.props.getDrawingState(drawing.id)
+    })
   }
 
   drawToFalse = e => {
-    if(this.props.drawingState.draw){
+    console.log(this.props.drawing);
+    if(this.props.drawing.draw){
       fetch(`${API_ROOT}drawings`, {
         method: `PATCH`,
         headers: AUTH_HEADERS,
         body: JSON.stringify({
           draw: true,
-          color: this.props.drawingState.color,
-          lineWidth: this.props.drawingState.lineWidth,
-          plots: this.props.drawingState.plots,
-          id: this.props.currentGame.drawing.id,
+          color: this.props.drawing.color,
+          lineWidth: this.props.drawing.lineWidth,
+          plots: this.props.drawing.plots,
+          id: this.props.drawing.id,
           game_id: this.props.currentGame.id
         })
       }).then(console.log("finished patch request to /drawings"))
@@ -31,12 +41,13 @@ class Canvas extends Component {
   }
 
   drawOnCanvas = (plots) => {
+    console.log("inside drawOnCanvas: ", this.props.drawing);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d")
     ctx.miterLimit = 0.25;
-    ctx.lineWidth = this.props.drawingState.lineWidth;
+    ctx.lineWidth = this.props.drawing.lineWidth;
     ctx.lineJoin = "round";
-    ctx.strokeStyle = this.props.drawingState.color;
+    ctx.strokeStyle = this.props.drawing.color;
     ctx.imageSmoothingQuality = "high";
     ctx.beginPath();
     ctx.moveTo(plots[0].x, plots[0].y);
@@ -59,9 +70,10 @@ class Canvas extends Component {
 }
 
   draw = e => {
-    if(this.props.drawingState.draw){
+    if(this.props.drawing.draw){
       let position = this.getMousePos(e)
-      let plots = [...this.props.drawingState.plots]
+      console.log("this.props.drawing right before the breaking spread",this.props.drawing);
+      let plots = (this.props.drawing.plots) ? [...this.props.drawing.plots] : [...this.props.drawing.drawing.plots]
       plots.push(position);
       this.props.setPlots(plots)
       this.drawOnCanvas(plots);
@@ -92,7 +104,7 @@ class Canvas extends Component {
   render (){
     return (
       <Container>
-        <DrawingCable game_id={this.props.game_id}/>
+        <DrawingCable game_id={this.props.game_id} drawOnCanvas={this.drawOnCanvas} />
         <div id="canvas"
         onMouseDown={this.props.drawToTrue}
         onMouseUp={this.drawToFalse}
@@ -147,6 +159,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    getDrawingState: data => dispatch({ type: "GET_DRAW", payload: data }),
     drawToTrue: data => dispatch({ type: "START_DRAW" }),
     drawToFalse: data => dispatch({ type: "END_DRAW" }),
     changeColor: data => dispatch({ type: "COLOR", payload: data }),

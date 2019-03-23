@@ -12,8 +12,11 @@ class DrawingCable extends Component {
           key={this.props.game_id}
           channel={{ channel: "DrawingsChannel", game_id: this.props.game_id }}
           onReceived={(data) => {
-            console.log("DrawingChannel recvd data: ", data)
+            console.log("DrawingChannel recvd data.drawing: ", data.drawing)
             this.props.getDrawing(data)
+            if (!!data.drawing){
+              this.props.drawOnCanvas(data.drawing.plots)
+            }
           }}
         />
     </Fragment>

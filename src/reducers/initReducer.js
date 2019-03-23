@@ -15,7 +15,8 @@ const initialState = {
     currentGame: {
       messages: []
   },
-  drawingState: {
+  drawing: {
+    id: 0,
     draw: false,
     plots: [{x: NaN, y: NaN}],
     color: "#1b1b1b",
@@ -55,31 +56,41 @@ const initReducer = (state = initialState, action) => {
           }
         case "UP_MSG":
           console.log("UP_MSG", action.payload);
-          return {
-            ...state,
-            currentGame: {
-              messages: [ ...state.currentGame.messages, action.payload]
+          if(!!state.currentGame.messages.find(message => parseInt(message.id) === parseInt(action.payload.id))) {
+            return {
+              ...state,
+              currentGame: {
+                messages: [ ...state.currentGame.messages, action.payload]
+              }
             }
           }
+          break;
         case "CABLE_DRAW":
-          console.log("CABLE_DRAW", action.payload)
           return {
             ...state,
-            drawingState: action.payload
+            drawing: action.payload
+          }
+        case "GET_DRAW":
+          return {
+            ...state,
+            drawing: {
+              ...state.drawing,
+              id: action.payload
+            }
           }
         case "START_DRAW":
           return {
             ...state,
-            drawingState: {
-              ...state.drawingState,
+            drawing: {
+              ...state.drawing,
               draw: true
             }
           }
           case "END_DRAW":
           return {
             ...state,
-            drawingState: {
-              ...state.drawingState,
+            drawing: {
+              ...state.drawing,
               draw: false,
               plots: [{x: NaN, y: NaN}]
             }
@@ -87,16 +98,16 @@ const initReducer = (state = initialState, action) => {
           case "COLOR":
           return {
             ...state,
-            drawingState: {
-              ...state.drawingState,
+            drawing: {
+              ...state.drawing,
               color: action.payload
             }
           }
           case "PLOTS":
           return {
             ...state,
-            drawingState: {
-              ...state.drawingState,
+            drawing: {
+              ...state.drawing,
               plots: action.payload
             }
           }
