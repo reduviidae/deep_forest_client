@@ -16,13 +16,11 @@ class Canvas extends Component {
     .then(r => r.json())
     .then(data => {
       let drawing = data.find(d => parseInt(d.game_id) === parseInt(this.props.game_id))
-      console.log(drawing)
       this.props.getDrawingState(drawing.id)
     })
   }
 
   drawToFalse = e => {
-    console.log(this.props.drawing);
     if(this.props.drawing.draw){
       fetch(`${API_ROOT}drawings`, {
         method: `PATCH`,
@@ -41,7 +39,6 @@ class Canvas extends Component {
   }
 
   drawOnCanvas = (plots) => {
-    console.log("inside drawOnCanvas: ", this.props.drawing);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d")
     ctx.miterLimit = 0.25;
@@ -72,7 +69,6 @@ class Canvas extends Component {
   draw = e => {
     if(this.props.drawing.draw){
       let position = this.getMousePos(e)
-      console.log("this.props.drawing right before the breaking spread",this.props.drawing);
       let plots = (this.props.drawing.plots) ? [...this.props.drawing.plots] : [...this.props.drawing.drawing.plots]
       plots.push(position);
       this.props.setPlots(plots)

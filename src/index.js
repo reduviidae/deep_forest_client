@@ -18,13 +18,6 @@ const store = createStore(initReducer,
   applyMiddleware(thunk)
 ));
 
-const token = localStorage.getItem('token');
-
-if (token) {
-    console.log(localStorage)
-    // store.dispatch({ type: AUTHENTICATE_THE_USER });
-}
-
 
 ReactDOM.render(
   <ActionCableProvider url={CABLE}>
