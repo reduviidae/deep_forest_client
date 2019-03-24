@@ -16,13 +16,11 @@ class Canvas extends Component {
     .then(r => r.json())
     .then(data => {
       let drawing = data.find(d => parseInt(d.game_id) === parseInt(this.props.game_id))
-      console.log(drawing)
       this.props.getDrawingState(drawing.id)
     })
   }
 
   drawToFalse = e => {
-    console.log(this.props.drawing);
     if(this.props.drawing.draw){
       fetch(`${API_ROOT}drawings`, {
           method: `PATCH`,

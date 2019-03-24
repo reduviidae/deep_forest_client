@@ -8,7 +8,8 @@ import Message from '../components/Message'
 
 class Chat extends Component {
   state ={
-    newmessage: ""
+    newmessage: "",
+    sortedMessages: []
   }
 
 
