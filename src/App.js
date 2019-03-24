@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import { JWT_SECRET } from './constants';
+import { API_ROOT, AUTH_HEADERS } from './constants';
 import { connect } from 'react-redux';
 
 // components
@@ -11,12 +11,13 @@ import GameContainer from "./containers/GameContainer"
 
 const token = localStorage.getItem('token');
 
-if (token) {
-    console.log(token)
-
-}
 
 class App extends Component {
+
+  componentWillMount() {
+    this.props.loadUserFromToken();
+  }
+
   render() {
     return (
       <Switch>
@@ -29,18 +30,18 @@ class App extends Component {
 }
 
 const meFromToken = tokenFromStorage => {
-  const request = fetch(`${API_ROOT}` {
-    method: 'get',
-    url: `${ROOT_URL}/me/from/token?token=${tokenFromStorage}`,
-    headers: {
-      'Authorization': `Bearer ${tokenFromStorage}`
-    }
-  });
-
-  return {
-    type: "ME_FROM_TOKEN",
-    payload: request
-  };
+  fetch(`${API_ROOT}me-from-token`, {
+    method: 'GET',
+    headers: AUTH_HEADERS
+  })
+  .then(r => r.json())
+  .then(data => {
+    console.log(data)
+    return {
+      type: "ME_FROM_TOKEN",
+      payload: data
+    };
+  })
 }
 
 const meFromTokenSuccess = currentUser => {
@@ -57,13 +58,22 @@ const meFromTokenFailure = error => {
   };
 }
 
+const resetToken = () => {
+  return {
+    type: "LOGOUT"
+  };
+}
+
+
 const mapDispatchToProps = (dispatch) => {
  return {
   loadUserFromToken: () => {
    if(!token || token === "") {
     return;
    }
-  dispatch(meFromToken(token))
+   let userData = meFromToken(token).json();
+   let userJSON = userData;
+  dispatch(userJSON)
   .then((response) => {
    if (!response.error) {
     //store token

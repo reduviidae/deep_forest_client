@@ -50,6 +50,10 @@ const initReducer = (state = initialState, action) => {
         userState: action.payload,
         loggedIn: true
       }
+    case "LOGOUT":
+      return {
+        initialState
+      }
     case "LOAD_GAMES":
       return {
         ...state,
