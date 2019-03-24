@@ -18,7 +18,7 @@ const initialState = {
   drawing: {
     id: 0,
     draw: false,
-    plots: [{x: NaN, y: NaN}],
+    plots: [],
     color: "#1b1b1b",
     lineWidth: 5
   }
@@ -56,15 +56,12 @@ const initReducer = (state = initialState, action) => {
           }
         case "UP_MSG":
           console.log("UP_MSG", action.payload);
-          if(!!state.currentGame.messages.find(message => parseInt(message.id) === parseInt(action.payload.id))) {
-            return {
-              ...state,
-              currentGame: {
-                messages: [ ...state.currentGame.messages, action.payload]
-              }
+          return {
+            ...state,
+            currentGame: {
+              messages: [ ...state.currentGame.messages, action.payload]
             }
           }
-          break;
         case "CABLE_DRAW":
           return {
             ...state,

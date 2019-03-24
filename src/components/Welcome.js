@@ -12,7 +12,7 @@ class Welcome extends Component {
 
   render() {
     return (
-      <Container id="start-container">
+      <Container className="start-container">
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />

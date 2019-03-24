@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Form, Button } from 'semantic-ui-react';
+import { Container, Form, Button, Input } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { API_ROOT, BASIC_HEADERS } from '../constants';
 import { connect } from 'react-redux';
@@ -42,10 +42,12 @@ class Login extends Component {
       )
     } else {
       return (
-        <Container>
+        <Container className="welcome-box">
           <Form id="login" onSubmit={this.onSubmitHandler}>
             <Form.Field>
-              <input
+              <Input
+                focus
+                size='massive'
                 type="text"
                 placeholder="Enter your username"
                 name="name"
@@ -55,7 +57,9 @@ class Login extends Component {
             </Form.Field>
             <br/>
             <Form.Field>
-              <input
+              <Input
+                focus
+                size='massive'
                 type="password"
                 placeholder="Enter your password"
                 name="password"

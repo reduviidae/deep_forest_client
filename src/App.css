@@ -1,28 +1,29 @@
-@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro|Arsenal|Barrio');
+@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro|Arsenal|Vampiro+One');
 
 body {
   font-family: 'Arsenal', sans-serif;
 }
 
 .lead-text {
-  font-family: 'Barrio', cursive;
+  font-family: 'Vampiro One', cursive;
 }
 
 .centered-text {
   text-align: center;
 }
 
-#start-container {
+
+.start-container {
   grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
   grid-template-rows: 20%, 60%, 20%;
-  border: dotted;
+  border-radius: 15%;
+  background-color: #E1E1E1;
 }
 
-#welcome-box{
+.welcome-box{
   padding: 20px;
-  grid-column-start: 3;
-  grid-row-start: 2;
-  border: solid;
+  grid-column-start: 3 !important;
+  grid-row-start: 2 !important;
 }
 
 #profile-container {
@@ -48,16 +49,11 @@ body {
 
 canvas {
   border: solid;
+  border-color: #1b1b1b;
+  border-width: thin;
   margin: 10px;
 }
 
-.color-palette {
-  height: 40px;
-  width: 40px;
-  margin: 2px;
-  border-radius: 100%;
-  float: left;
-}
 
 .drawing-tool-sizes {
   clear: both;
@@ -108,6 +104,14 @@ canvas {
 
 .message-text {
   text-align: left;
+}
+
+.color-palette {
+  height: 40px;
+  width: 40px;
+  margin: 2px;
+  border-radius: 100%;
+  float: left;
 }
 
 #c-e12c2c {

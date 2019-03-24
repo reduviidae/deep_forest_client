@@ -41,7 +41,7 @@ class Signup extends Component {
       )
     } else {
       return (
-        <Container>
+        <Container className="welcome-box">
           <Form id="signup" onSubmit={this.onSubmitHandler}>
             <Form.Field>
               <input

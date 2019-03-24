@@ -25,7 +25,7 @@ class Canvas extends Component {
     console.log(this.props.drawing);
     if(this.props.drawing.draw){
       fetch(`${API_ROOT}drawings`, {
-        method: `PATCH`,
+          method: `PATCH`,
         headers: AUTH_HEADERS,
         body: JSON.stringify({
           draw: true,
@@ -35,19 +35,19 @@ class Canvas extends Component {
           id: this.props.drawing.id,
           game_id: this.props.currentGame.id
         })
-      }).then(console.log("finished patch request to /drawings"))
+      }).then(console.log)
     }
     this.props.drawToFalse()
   }
 
-  drawOnCanvas = (plots) => {
+  drawOnCanvas = (plots, color = this.props.drawing.color, lineWidth = this.props.drawing.lineWidth) => {
     console.log("inside drawOnCanvas: ", this.props.drawing);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d")
     ctx.miterLimit = 0.25;
-    ctx.lineWidth = this.props.drawing.lineWidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = "round";
-    ctx.strokeStyle = this.props.drawing.color;
+    ctx.strokeStyle = color;
     ctx.imageSmoothingQuality = "high";
     ctx.beginPath();
     ctx.moveTo(plots[0].x, plots[0].y);
@@ -72,7 +72,6 @@ class Canvas extends Component {
   draw = e => {
     if(this.props.drawing.draw){
       let position = this.getMousePos(e)
-      console.log("this.props.drawing right before the breaking spread",this.props.drawing);
       let plots = (this.props.drawing.plots) ? [...this.props.drawing.plots] : [...this.props.drawing.drawing.plots]
       plots.push(position);
       this.props.setPlots(plots)
