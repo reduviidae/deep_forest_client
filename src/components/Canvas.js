@@ -39,12 +39,14 @@ class Canvas extends Component {
     ctx.lineJoin = "round";
     ctx.strokeStyle = color;
     ctx.imageSmoothingQuality = "high";
-    ctx.beginPath();
-    ctx.moveTo(plots[0].x, plots[0].y);
-    for(let i=1; i<plots.length; i++) {
-      ctx.lineTo(plots[i].x, plots[i].y);
-    };
-    ctx.stroke();
+    if(!!plots[0]){
+      ctx.beginPath();
+      ctx.moveTo(plots[0].x, plots[0].y);
+      for(let i=1; i<plots.length; i++) {
+        ctx.lineTo(plots[i].x, plots[i].y);
+      };
+      ctx.stroke();
+    }
   }
 
   getMousePos = e => {

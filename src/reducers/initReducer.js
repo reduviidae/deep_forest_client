@@ -93,7 +93,7 @@ const initReducer = (state = initialState, action) => {
             drawing: {
               ...state.drawing,
               draw: false,
-              plots: [{x: NaN, y: NaN}]
+              plots: []
             }
           }
           case "COLOR":

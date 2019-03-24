@@ -10,10 +10,6 @@ import { Redirect, Link } from 'react-router-dom';
 
 
 class Profile extends Component {
-  state={
-    gameForm: false,
-    gameTitle: ""
-  }
 
   componentDidMount(){
     this.fetchUserData()
@@ -30,42 +26,8 @@ class Profile extends Component {
     }
   }
 
-  gameForm = () => {
-    this.setState({ gameForm: !this.state.gameForm })
-  }
-
-  gameTitle = e => {
-    this.setState({ gameTitle: e.target.value})
-  }
-
-  newGame = (e, data) => {
-    e.preventDefault()
-    fetch(`${API_ROOT}games`, {
-      method: `POST`,
-      headers: AUTH_HEADERS,
-      body: JSON.stringify({
-        title: this.state.gameTitle
-      })
-    })
-    .then(r => r.json())
-    .then(data => {
-      fetch(`${API_ROOT}user_games`, {
-        method: `POST`,
-        headers: AUTH_HEADERS,
-        body: JSON.stringify({
-          game_id: GAME_ID,
-          user_id: this.props.state.userState.id
-        })
-      })
-      .then(r => r.json())
-      .then(this.props.addGame)
-    })
-  }
 
   render (){
-    console.log(this.props.state)
-    const userGames = !!this.props.state.userState.user.games &&
-        this.props.state.userState.user.games.map(game => <Link key={`game=${game.id}`} game={game} to={`/game/${game.id}`}>{game.title}</Link>)
     if (!this.props.state.loggedIn) {
       return (
         <Redirect to="/" />
@@ -77,24 +39,9 @@ class Profile extends Component {
           <h2>Welcome back, {this.props.state.userState.user.name}</h2>
           <h3>Games:</h3>
           <List className="user-games">
-            {userGames}
+            <Link key={`${GAME_ID}`} game={'Chat and Draw'} to={`/game/${GAME_ID}`}>Join Chat and Draw</Link>
           </List>
-          <Button onClick={this.gameForm}>New Game</Button>
           </div>
-          <br />
-          {this.state.gameForm ?
-            <Container id="new-game-form">
-              <br/>
-              <Form onSubmit={this.newGame}>
-                <Form.Field>
-                  <label>Game Title</label>
-                  <Input placeholder='Enter game title' value={this.state.gameTitle} onChange={this.gameTitle}/>
-                </Form.Field>
-                <Button type='submit'>Create</Button>
-              </Form>
-            </Container> :
-            null
-          }
       </Container>
     )
     }
@@ -108,8 +55,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    profile: data => dispatch({ type: "SHOW_USER", payload: data }),
-    addGame: data => dispatch({ type: "ADD_GAME", payload: data })
+    profile: data => dispatch({ type: "SHOW_USER", payload: data })
   }
 }
 

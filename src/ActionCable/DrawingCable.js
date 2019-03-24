@@ -15,6 +15,7 @@ class DrawingCable extends Component {
             console.log("DrawingChannel recvd data.drawing: ", data.drawing)
             this.props.getDrawing(data)
             if (!!data.drawing){
+              console.log("within DrawingCable if statement: ", data.drawing);
               this.props.drawOnCanvas(data.drawing.plots, data.drawing.color, data.drawing.lineWidth)
             }
           }}
