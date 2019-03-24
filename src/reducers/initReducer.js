@@ -27,17 +27,6 @@ const initialState = {
 
 const initReducer = (state = initialState, action) => {
   switch (action.type){
-    case "ME_FROM_TOKEN_SUCCESS":
-    return { ...state,
-      ...state.userState,
-      user: action.payload.data.user,
-      loggedIn: true
-    }
-    case "ME_FROM_TOKEN_FAILURE":
-     return { ...state,
-       ...state.userState,
-       loggedIn: false
-     }
     case "AUTH_USER":
       return {
         ...state,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
-import { API_ROOT, AUTH_HEADERS, GAME_ID } from '../constants';
+import { API_ROOT, AUTH_HEADERS } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 

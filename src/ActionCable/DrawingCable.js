@@ -1,7 +1,7 @@
 import { ActionCable } from 'react-actioncable-provider';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { GAME_ID } from './constants';
+import { GAME_ID } from '../constants';
 
 
 class DrawingCable extends Component {
