@@ -27,6 +27,7 @@ class Signup extends Component {
     })
     .then(r => r.json())
     .then(data => {
+      console.log(data);
       localStorage.setItem("token", data.jwt);
       document.cookie = 'X-Authorization=' + data.jwt + '; path=/';
       this.props.login(data)
