@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
-import { API_ROOT, AUTH_HEADERS } from '../constants';
+import { API_ROOT, AUTH_HEADERS, GAME_ID } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
@@ -34,10 +34,10 @@ class GameContainer extends Component {
         return (
         <Container className="game-container">
           <div className="canvas-container">
-            <Canvas currentGame={this.props.state} game_id={this.props.match.params.id}/>
+            <Canvas currentGame={this.props.state} />
           </div>
           <div className="chat-container">
-            <Chat game_id={this.props.match.params.id}/>
+            <Chat />
           </div>
         </Container>
         )

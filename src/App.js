@@ -15,7 +15,7 @@ const token = localStorage.getItem('token');
 class App extends Component {
 
   componentWillMount() {
-    this.props.loadUserFromToken();
+    // this.props.loadUserFromToken();
   }
 
   render() {

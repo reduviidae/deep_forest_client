@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container } from 'semantic-ui-react';
-import { API_ROOT, AUTH_HEADERS } from '../constants';
+import { API_ROOT, AUTH_HEADERS, DRAWING_ID, GAME_ID } from '../constants';
 import DrawingCable from '../ActionCable/DrawingCable';
 
 class Canvas extends Component {
@@ -9,15 +9,7 @@ class Canvas extends Component {
 
 
   componentDidMount() {
-    fetch(`${API_ROOT}drawings`, {
-      method: `GET`,
-      headers: AUTH_HEADERS
-    })
-    .then(r => r.json())
-    .then(data => {
-      let drawing = data.find(d => parseInt(d.game_id) === parseInt(this.props.game_id))
-      this.props.getDrawingState(drawing.id)
-    })
+    this.props.getDrawingState(DRAWING_ID)
   }
 
   drawToFalse = e => {
@@ -31,7 +23,7 @@ class Canvas extends Component {
           lineWidth: this.props.drawing.lineWidth,
           plots: this.props.drawing.plots,
           id: this.props.drawing.id,
-          game_id: this.props.currentGame.id
+          game_id: GAME_ID
         })
       }).then(console.log)
     }
@@ -101,7 +93,7 @@ class Canvas extends Component {
   render (){
     return (
       <Container>
-        <DrawingCable game_id={this.props.game_id} drawOnCanvas={this.drawOnCanvas} />
+        <DrawingCable drawOnCanvas={this.drawOnCanvas} />
         <div id="canvas"
         onMouseDown={this.props.drawToTrue}
         onMouseUp={this.drawToFalse}

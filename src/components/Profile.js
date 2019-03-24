@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, List, Button, Form, Input } from 'semantic-ui-react';
-import { API_ROOT, AUTH_HEADERS } from '../constants';
+import { API_ROOT, AUTH_HEADERS, GAME_ID } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 // import GameList from './GameList';
@@ -53,7 +53,7 @@ class Profile extends Component {
         method: `POST`,
         headers: AUTH_HEADERS,
         body: JSON.stringify({
-          game_id: data.id,
+          game_id: GAME_ID,
           user_id: this.props.state.userState.id
         })
       })

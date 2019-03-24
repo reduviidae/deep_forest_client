@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Button, TextArea, Form } from 'semantic-ui-react';
-import { API_ROOT, AUTH_HEADERS } from '../constants';
+import { API_ROOT, AUTH_HEADERS, GAME_ID } from '../constants';
 import { connect } from 'react-redux';
 import Cable from './Cable'
 import Message from '../components/Message'
@@ -27,7 +27,7 @@ class Chat extends Component {
       method: `POST`,
       headers: AUTH_HEADERS,
       body: JSON.stringify({
-        game_id: this.props.game_id,
+        game_id: GAME_ID,
         user_id: this.props.state.userState.user.id,
         user_name: this.props.state.userState.user.name,
         content: this.state.newmessage
@@ -69,7 +69,7 @@ class Chat extends Component {
         <ul className="chat-text" id="chat-message-box">
         {messages}
         </ul>
-        <Cable game_id={this.props.game_id}/>
+        <Cable />
         <div className="chat-text" id="new-message-box">
           <Form onSubmit={this.sendMessage}>
             <TextArea value={this.state.newmessage} style={{ minHeight: 100, minWidth: 200 }} name="newmessage" onChange={this.typeMessage}/>
