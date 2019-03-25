@@ -2,6 +2,8 @@
 
 body {
   font-family: 'Arsenal', sans-serif;
+  grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
+  grid-template-rows: 20%, 60%, 20%;
 }
 
 .lead-text {
@@ -14,14 +16,13 @@ body {
 
 
 .start-container {
-  grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
-  grid-template-rows: 20%, 60%, 20%;
-  border-radius: 15%;
-  background-color: #E1E1E1;
+  grid-column-start: 3;
+  grid-row-start: 2;
 }
 
 .welcome-box{
   padding: 20px;
+  background-color: #FEFEFA;
   grid-column-start: 3 !important;
   grid-row-start: 2 !important;
 }

@@ -104,6 +104,15 @@ const initReducer = (state = initialState, action) => {
               color: action.payload
             }
           }
+          case "SIZE":
+          console.log("SIZE: ", action.payload)
+          return {
+            ...state,
+            drawing: {
+              ...state.drawing,
+              lineWidth: parseInt(action.payload)
+            }
+          }
           case "PLOTS":
           return {
             ...state,

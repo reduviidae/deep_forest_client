@@ -36,20 +36,6 @@ class Chat extends Component {
     .then(() => this.setState({ newmessage: "" }))
   }
 
-  removeDupes = dupeArray => {
-    let i = 0;
-    dupeArray.forEach(element => {
-      i++;
-      console.log(!!dupeArray[i] && parseInt(dupeArray[i].id) === parseInt(element.id));
-      if(!!dupeArray[i] && parseInt(dupeArray[i].id) === parseInt(element.id)) {
-        console.log(dupeArray.splice(1, i));
-        return dupeArray.splice(i, 1)
-      } else {
-        return dupeArray
-      }
-    })
-}
-
 
   render (){
     const sortedMessages = !!this.props.state.currentGame.messages && this.props.state.currentGame.messages.sort(function(a, b){
@@ -59,10 +45,7 @@ class Chat extends Component {
           if(keyA < keyB) return -1;
           if(keyA > keyB) return 1;
           return 0;
-      });
-
-    const deDupedMessages = this.removeDupes(sortedMessages);
-    console.log(deDupedMessages);
+      }).slice(-10);
     const messages = !!sortedMessages && sortedMessages.map(message => <Message message={message} />)
       return (
         <Container>

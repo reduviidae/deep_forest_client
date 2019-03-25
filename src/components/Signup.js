@@ -42,7 +42,8 @@ class Signup extends Component {
       )
     } else {
       return (
-        <Container className="welcome-box">
+        <Container>
+          <div className="welcome-box centered-containter">
           <Form id="signup" onSubmit={this.onSubmitHandler}>
             <Form.Field>
               <input
@@ -78,6 +79,7 @@ class Signup extends Component {
             <Button type='submit'>Sign up</Button>
 
           </Form>
+          </div>
         </Container>
       );
     }

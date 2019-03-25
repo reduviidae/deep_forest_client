@@ -6,7 +6,9 @@ import DrawingCable from '../ActionCable/DrawingCable';
 
 class Canvas extends Component {
 
-
+  state = {
+    plots: []
+  }
 
   componentDidMount() {
     this.props.getDrawingState(DRAWING_ID)
@@ -22,24 +24,22 @@ class Canvas extends Component {
           color: this.props.drawing.color,
           lineWidth: this.props.drawing.lineWidth,
           plots: this.props.drawing.plots,
-          id: this.props.drawing.id,
           game_id: GAME_ID
         })
-      }).then(console.log)
+      }).then(this.setState({ plots: [] }))
     }
     this.props.drawToFalse()
   }
 
   drawOnCanvas = (plots, color = this.props.drawing.color, lineWidth = this.props.drawing.lineWidth) => {
-    console.log("inside drawOnCanvas: ", this.props.drawing);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext("2d")
     ctx.miterLimit = 0.25;
     ctx.lineWidth = lineWidth;
-    ctx.lineJoin = "round";
+    ctx.lineJoin = "bevel";
     ctx.strokeStyle = color;
     ctx.imageSmoothingQuality = "high";
-    if(!!plots[0]){
+    if(!!plots){
       ctx.beginPath();
       ctx.moveTo(plots[0].x, plots[0].y);
       for(let i=1; i<plots.length; i++) {
@@ -64,8 +64,9 @@ class Canvas extends Component {
   draw = e => {
     if(this.props.drawing.draw){
       let position = this.getMousePos(e)
-      let plots = (this.props.drawing.plots) ? [...this.props.drawing.plots] : [...this.props.drawing.drawing.plots]
+      let plots = [...this.state.plots]
       plots.push(position);
+      this.setState({ plots })
       this.props.setPlots(plots)
       this.drawOnCanvas(plots);
     }
@@ -77,15 +78,16 @@ class Canvas extends Component {
   }
 
   changeSize = e => {
+
     switch(e.target.id){
       case "small":
-        this.setState({ lineWidth: 1 });
+        this.props.changeSize(1);
         break;
       case "medium":
-       this.setState({ lineWidth: 5 });
+       this.props.changeSize(5);
        break;
       case "large":
-        this.setState({ lineWidth: 10 });
+        this.props.changeSize(20);
         break;
       default:
         return this.state.lineWidth
@@ -101,7 +103,7 @@ class Canvas extends Component {
         onMouseUp={this.drawToFalse}
         onMouseMove={this.draw}
         >
-          <canvas ref="canvas" width={800} height={700}/>
+          <canvas ref="canvas" width={(window.outerWidth * .8)} height={(window.innerHeight * .8)}/>
         </div>
         <div>
           <div className="color-palette" id="c-e12c2c" onClick={this.changeColor}>
@@ -154,6 +156,7 @@ const mapDispatchToProps = dispatch => {
     drawToTrue: data => dispatch({ type: "START_DRAW" }),
     drawToFalse: data => dispatch({ type: "END_DRAW" }),
     changeColor: data => dispatch({ type: "COLOR", payload: data }),
+    changeSize: data => dispatch({ type:"SIZE", payload: data}),
     setPlots: data => dispatch({ type: "PLOTS", payload: data })
   }
 }
