@@ -1,272 +1,278 @@
-diff --git a/package.json b/package.json
-index 29b37a7..9fb7826 100644
---- a/package.json
-+++ b/package.json
-@@ -4,7 +4,6 @@
-   "private": true,
-   "dependencies": {
-     "action-cable-react-jwt": "^0.0.5",
--    "p5": "^0.7.3",
-     "pubnub": "^4.23.0",
-     "react": "^16.8.4",
-     "react-actioncable-provider": "^2.0.0",
-diff --git a/public/img/Sidewalk-Chalk-Festival.JPG b/public/img/Sidewalk-Chalk-Festival.JPG
-deleted file mode 100644
-index 3c8e974..0000000
-Binary files a/public/img/Sidewalk-Chalk-Festival.JPG and /dev/null differ
-diff --git a/public/img/activity-aquarelle-art-587549.jpg b/public/img/activity-aquarelle-art-587549.jpg
-deleted file mode 100644
-index 8a994f7..0000000
-Binary files a/public/img/activity-aquarelle-art-587549.jpg and /dev/null differ
-diff --git a/src/ActionCable/Chat.js b/src/ActionCable/Chat.js
-index 5c89e95..6ad0a91 100644
---- a/src/ActionCable/Chat.js
-+++ b/src/ActionCable/Chat.js
-@@ -36,6 +36,20 @@ class Chat extends Component {
-     .then(() => this.setState({ newmessage: "" }))
-   }
- 
-+  removeDupes = dupeArray => {
-+    let i = 0;
-+    dupeArray.forEach(element => {
-+      i++;
-+      console.log(!!dupeArray[i] && parseInt(dupeArray[i].id) === parseInt(element.id));
-+      if(!!dupeArray[i] && parseInt(dupeArray[i].id) === parseInt(element.id)) {
-+        console.log(dupeArray.splice(1, i));
-+        return dupeArray.splice(i, 1)
-+      } else {
-+        return dupeArray
-+      }
-+    })
-+}
-+
- 
-   render (){
-     const sortedMessages = !!this.props.state.currentGame.messages && this.props.state.currentGame.messages.sort(function(a, b){
-@@ -45,7 +59,10 @@ class Chat extends Component {
-           if(keyA < keyB) return -1;
-           if(keyA > keyB) return 1;
-           return 0;
--      }).slice(-10);
-+      });
-+
-+    const deDupedMessages = this.removeDupes(sortedMessages);
-+    console.log(deDupedMessages);
-     const messages = !!sortedMessages && sortedMessages.map(message => <Message message={message} />)
-       return (
-         <Container>
-diff --git a/src/App.css b/src/App.css
-index a436243..28e3276 100644
---- a/src/App.css
-+++ b/src/App.css
-@@ -2,8 +2,6 @@
- 
- body {
-   font-family: 'Arsenal', sans-serif;
--  grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
--  grid-template-rows: 20%, 60%, 20%;
- }
- 
- .lead-text {
-@@ -16,13 +14,14 @@ body {
- 
- 
- .start-container {
--  grid-column-start: 3;
--  grid-row-start: 2;
-+  grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
-+  grid-template-rows: 20%, 60%, 20%;
-+  border-radius: 15%;
-+  background-color: #E1E1E1;
- }
- 
- .welcome-box{
-   padding: 20px;
--  background-color: #FEFEFA;
-   grid-column-start: 3 !important;
-   grid-row-start: 2 !important;
- }
-diff --git a/src/components/Canvas.js b/src/components/Canvas.js
-index f962987..b335371 100644
---- a/src/components/Canvas.js
-+++ b/src/components/Canvas.js
-@@ -6,9 +6,7 @@ import DrawingCable from '../ActionCable/DrawingCable';
- 
- class Canvas extends Component {
- 
--  state = {
--    plots: []
--  }
-+
- 
-   componentDidMount() {
-     this.props.getDrawingState(DRAWING_ID)
-@@ -24,22 +22,24 @@ class Canvas extends Component {
-           color: this.props.drawing.color,
-           lineWidth: this.props.drawing.lineWidth,
-           plots: this.props.drawing.plots,
-+          id: this.props.drawing.id,
-           game_id: GAME_ID
-         })
--      }).then(this.setState({ plots: [] }))
-+      }).then(console.log)
-     }
-     this.props.drawToFalse()
-   }
- 
-   drawOnCanvas = (plots, color = this.props.drawing.color, lineWidth = this.props.drawing.lineWidth) => {
-+    console.log("inside drawOnCanvas: ", this.props.drawing);
-     const canvas = this.refs.canvas;
-     const ctx = canvas.getContext("2d")
-     ctx.miterLimit = 0.25;
-     ctx.lineWidth = lineWidth;
--    ctx.lineJoin = "bevel";
-+    ctx.lineJoin = "round";
-     ctx.strokeStyle = color;
-     ctx.imageSmoothingQuality = "high";
--    if(!!plots){
-+    if(!!plots[0]){
-       ctx.beginPath();
-       ctx.moveTo(plots[0].x, plots[0].y);
-       for(let i=1; i<plots.length; i++) {
-@@ -64,9 +64,8 @@ class Canvas extends Component {
-   draw = e => {
-     if(this.props.drawing.draw){
-       let position = this.getMousePos(e)
--      let plots = [...this.state.plots]
-+      let plots = (this.props.drawing.plots) ? [...this.props.drawing.plots] : [...this.props.drawing.drawing.plots]
-       plots.push(position);
--      this.setState({ plots })
-       this.props.setPlots(plots)
-       this.drawOnCanvas(plots);
-     }
-@@ -78,16 +77,15 @@ class Canvas extends Component {
-   }
- 
-   changeSize = e => {
--
-     switch(e.target.id){
-       case "small":
--        this.props.changeSize(1);
-+        this.setState({ lineWidth: 1 });
-         break;
-       case "medium":
--       this.props.changeSize(5);
-+       this.setState({ lineWidth: 5 });
-        break;
-       case "large":
--        this.props.changeSize(20);
-+        this.setState({ lineWidth: 10 });
-         break;
-       default:
-         return this.state.lineWidth
-@@ -103,7 +101,7 @@ class Canvas extends Component {
-         onMouseUp={this.drawToFalse}
-         onMouseMove={this.draw}
-         >
--          <canvas ref="canvas" width={(window.outerWidth * .8)} height={(window.innerHeight * .8)}/>
-+          <canvas ref="canvas" width={800} height={700}/>
-         </div>
-         <div>
-           <div className="color-palette" id="c-e12c2c" onClick={this.changeColor}>
-@@ -156,7 +154,6 @@ const mapDispatchToProps = dispatch => {
-     drawToTrue: data => dispatch({ type: "START_DRAW" }),
-     drawToFalse: data => dispatch({ type: "END_DRAW" }),
-     changeColor: data => dispatch({ type: "COLOR", payload: data }),
--    changeSize: data => dispatch({ type:"SIZE", payload: data}),
-     setPlots: data => dispatch({ type: "PLOTS", payload: data })
-   }
- }
-diff --git a/src/components/Login.js b/src/components/Login.js
-index 728f4fa..419ad5c 100644
---- a/src/components/Login.js
-+++ b/src/components/Login.js
-@@ -42,8 +42,7 @@ class Login extends Component {
-       )
-     } else {
-       return (
--        <Container>
--          <div className="welcome-box centered-container">
-+        <Container className="welcome-box">
-           <Form id="login" onSubmit={this.onSubmitHandler}>
-             <Form.Field>
-               <Input
-@@ -73,7 +72,6 @@ class Login extends Component {
-             <Button type='submit'>Login</Button>
- 
-           </Form>
--          </div>
-         </Container>
-       );
-     }
-diff --git a/src/components/Signup.js b/src/components/Signup.js
-index 9c0e496..19c6eef 100644
---- a/src/components/Signup.js
-+++ b/src/components/Signup.js
-@@ -42,8 +42,7 @@ class Signup extends Component {
-       )
-     } else {
-       return (
--        <Container>
--          <div className="welcome-box centered-containter">
-+        <Container className="welcome-box">
-           <Form id="signup" onSubmit={this.onSubmitHandler}>
-             <Form.Field>
-               <input
-@@ -79,7 +78,6 @@ class Signup extends Component {
-             <Button type='submit'>Sign up</Button>
- 
-           </Form>
--          </div>
-         </Container>
-       );
-     }
-diff --git a/src/components/Welcome.js b/src/components/Welcome.js
-index 0d72d51..3481658 100644
---- a/src/components/Welcome.js
-+++ b/src/components/Welcome.js
-@@ -12,7 +12,7 @@ class Welcome extends Component {
- 
-   render() {
-     return (
--      <Container>
-+      <Container className="start-container">
-           <Switch>
-             <Route path="/login" component={Login} />
-             <Route path="/signup" component={Signup} />
-diff --git a/src/reducers/initReducer.js b/src/reducers/initReducer.js
-index 8a0fd6e..495ae65 100644
---- a/src/reducers/initReducer.js
-+++ b/src/reducers/initReducer.js
-@@ -104,15 +104,6 @@ const initReducer = (state = initialState, action) => {
-               color: action.payload
-             }
-           }
--          case "SIZE":
--          console.log("SIZE: ", action.payload)
--          return {
--            ...state,
--            drawing: {
--              ...state.drawing,
--              lineWidth: parseInt(action.payload)
--            }
--          }
-           case "PLOTS":
-           return {
-             ...state,
-diff --git a/yarn.lock b/yarn.lock
-index 22b9ded..65cf46d 100755
---- a/yarn.lock
-+++ b/yarn.lock
-@@ -6931,11 +6931,6 @@ p-try@^2.0.0:
-   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.0.0.tgz#85080bb87c64688fa47996fe8f7dfbe8211760b1"
-   integrity sha512-hMp0onDKIajHfIkdRk3P4CdCmErkYAxxDtP3Wx/4nZ3aGlau2VKh3mZpcuFkH27WQkL/3WBCPOktzA9ZOAnMQQ==
- 
--p5@^0.7.3:
--  version "0.7.3"
--  resolved "https://registry.yarnpkg.com/p5/-/p5-0.7.3.tgz#a0660327feb8da3e43359a16ad62566b96a7cabe"
--  integrity sha512-Ap0Op/YlbqlBe9BEkpislygOKcID9+i6lbGHcUY/QkgZl21+Jy0GPpw+bLjgURk/wlloLcXGnUDpuGsP0xsx2Q==
--
- pac-proxy-agent@^2.0.1:
-   version "2.0.2"
-   resolved "https://registry.yarnpkg.com/pac-proxy-agent/-/pac-proxy-agent-2.0.2.tgz#90d9f6730ab0f4d2607dcdcd4d3d641aa26c3896"
+diff --git a/my.patch b/my.patch
+new file mode 100644
+index 0000000..059cd51
+--- /dev/null
++++ b/my.patch
+@@ -0,0 +1,272 @@
++diff --git a/package.json b/package.json
++index 29b37a7..9fb7826 100644
++--- a/package.json
+++++ b/package.json
++@@ -4,7 +4,6 @@
++   "private": true,
++   "dependencies": {
++     "action-cable-react-jwt": "^0.0.5",
++-    "p5": "^0.7.3",
++     "pubnub": "^4.23.0",
++     "react": "^16.8.4",
++     "react-actioncable-provider": "^2.0.0",
++diff --git a/public/img/Sidewalk-Chalk-Festival.JPG b/public/img/Sidewalk-Chalk-Festival.JPG
++deleted file mode 100644
++index 3c8e974..0000000
++Binary files a/public/img/Sidewalk-Chalk-Festival.JPG and /dev/null differ
++diff --git a/public/img/activity-aquarelle-art-587549.jpg b/public/img/activity-aquarelle-art-587549.jpg
++deleted file mode 100644
++index 8a994f7..0000000
++Binary files a/public/img/activity-aquarelle-art-587549.jpg and /dev/null differ
++diff --git a/src/ActionCable/Chat.js b/src/ActionCable/Chat.js
++index 5c89e95..6ad0a91 100644
++--- a/src/ActionCable/Chat.js
+++++ b/src/ActionCable/Chat.js
++@@ -36,6 +36,20 @@ class Chat extends Component {
++     .then(() => this.setState({ newmessage: "" }))
++   }
++ 
+++  removeDupes = dupeArray => {
+++    let i = 0;
+++    dupeArray.forEach(element => {
+++      i++;
+++      console.log(!!dupeArray[i] && parseInt(dupeArray[i].id) === parseInt(element.id));
+++      if(!!dupeArray[i] && parseInt(dupeArray[i].id) === parseInt(element.id)) {
+++        console.log(dupeArray.splice(1, i));
+++        return dupeArray.splice(i, 1)
+++      } else {
+++        return dupeArray
+++      }
+++    })
+++}
+++
++ 
++   render (){
++     const sortedMessages = !!this.props.state.currentGame.messages && this.props.state.currentGame.messages.sort(function(a, b){
++@@ -45,7 +59,10 @@ class Chat extends Component {
++           if(keyA < keyB) return -1;
++           if(keyA > keyB) return 1;
++           return 0;
++-      }).slice(-10);
+++      });
+++
+++    const deDupedMessages = this.removeDupes(sortedMessages);
+++    console.log(deDupedMessages);
++     const messages = !!sortedMessages && sortedMessages.map(message => <Message message={message} />)
++       return (
++         <Container>
++diff --git a/src/App.css b/src/App.css
++index a436243..28e3276 100644
++--- a/src/App.css
+++++ b/src/App.css
++@@ -2,8 +2,6 @@
++ 
++ body {
++   font-family: 'Arsenal', sans-serif;
++-  grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
++-  grid-template-rows: 20%, 60%, 20%;
++ }
++ 
++ .lead-text {
++@@ -16,13 +14,14 @@ body {
++ 
++ 
++ .start-container {
++-  grid-column-start: 3;
++-  grid-row-start: 2;
+++  grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
+++  grid-template-rows: 20%, 60%, 20%;
+++  border-radius: 15%;
+++  background-color: #E1E1E1;
++ }
++ 
++ .welcome-box{
++   padding: 20px;
++-  background-color: #FEFEFA;
++   grid-column-start: 3 !important;
++   grid-row-start: 2 !important;
++ }
++diff --git a/src/components/Canvas.js b/src/components/Canvas.js
++index f962987..b335371 100644
++--- a/src/components/Canvas.js
+++++ b/src/components/Canvas.js
++@@ -6,9 +6,7 @@ import DrawingCable from '../ActionCable/DrawingCable';
++ 
++ class Canvas extends Component {
++ 
++-  state = {
++-    plots: []
++-  }
+++
++ 
++   componentDidMount() {
++     this.props.getDrawingState(DRAWING_ID)
++@@ -24,22 +22,24 @@ class Canvas extends Component {
++           color: this.props.drawing.color,
++           lineWidth: this.props.drawing.lineWidth,
++           plots: this.props.drawing.plots,
+++          id: this.props.drawing.id,
++           game_id: GAME_ID
++         })
++-      }).then(this.setState({ plots: [] }))
+++      }).then(console.log)
++     }
++     this.props.drawToFalse()
++   }
++ 
++   drawOnCanvas = (plots, color = this.props.drawing.color, lineWidth = this.props.drawing.lineWidth) => {
+++    console.log("inside drawOnCanvas: ", this.props.drawing);
++     const canvas = this.refs.canvas;
++     const ctx = canvas.getContext("2d")
++     ctx.miterLimit = 0.25;
++     ctx.lineWidth = lineWidth;
++-    ctx.lineJoin = "bevel";
+++    ctx.lineJoin = "round";
++     ctx.strokeStyle = color;
++     ctx.imageSmoothingQuality = "high";
++-    if(!!plots){
+++    if(!!plots[0]){
++       ctx.beginPath();
++       ctx.moveTo(plots[0].x, plots[0].y);
++       for(let i=1; i<plots.length; i++) {
++@@ -64,9 +64,8 @@ class Canvas extends Component {
++   draw = e => {
++     if(this.props.drawing.draw){
++       let position = this.getMousePos(e)
++-      let plots = [...this.state.plots]
+++      let plots = (this.props.drawing.plots) ? [...this.props.drawing.plots] : [...this.props.drawing.drawing.plots]
++       plots.push(position);
++-      this.setState({ plots })
++       this.props.setPlots(plots)
++       this.drawOnCanvas(plots);
++     }
++@@ -78,16 +77,15 @@ class Canvas extends Component {
++   }
++ 
++   changeSize = e => {
++-
++     switch(e.target.id){
++       case "small":
++-        this.props.changeSize(1);
+++        this.setState({ lineWidth: 1 });
++         break;
++       case "medium":
++-       this.props.changeSize(5);
+++       this.setState({ lineWidth: 5 });
++        break;
++       case "large":
++-        this.props.changeSize(20);
+++        this.setState({ lineWidth: 10 });
++         break;
++       default:
++         return this.state.lineWidth
++@@ -103,7 +101,7 @@ class Canvas extends Component {
++         onMouseUp={this.drawToFalse}
++         onMouseMove={this.draw}
++         >
++-          <canvas ref="canvas" width={(window.outerWidth * .8)} height={(window.innerHeight * .8)}/>
+++          <canvas ref="canvas" width={800} height={700}/>
++         </div>
++         <div>
++           <div className="color-palette" id="c-e12c2c" onClick={this.changeColor}>
++@@ -156,7 +154,6 @@ const mapDispatchToProps = dispatch => {
++     drawToTrue: data => dispatch({ type: "START_DRAW" }),
++     drawToFalse: data => dispatch({ type: "END_DRAW" }),
++     changeColor: data => dispatch({ type: "COLOR", payload: data }),
++-    changeSize: data => dispatch({ type:"SIZE", payload: data}),
++     setPlots: data => dispatch({ type: "PLOTS", payload: data })
++   }
++ }
++diff --git a/src/components/Login.js b/src/components/Login.js
++index 728f4fa..419ad5c 100644
++--- a/src/components/Login.js
+++++ b/src/components/Login.js
++@@ -42,8 +42,7 @@ class Login extends Component {
++       )
++     } else {
++       return (
++-        <Container>
++-          <div className="welcome-box centered-container">
+++        <Container className="welcome-box">
++           <Form id="login" onSubmit={this.onSubmitHandler}>
++             <Form.Field>
++               <Input
++@@ -73,7 +72,6 @@ class Login extends Component {
++             <Button type='submit'>Login</Button>
++ 
++           </Form>
++-          </div>
++         </Container>
++       );
++     }
++diff --git a/src/components/Signup.js b/src/components/Signup.js
++index 9c0e496..19c6eef 100644
++--- a/src/components/Signup.js
+++++ b/src/components/Signup.js
++@@ -42,8 +42,7 @@ class Signup extends Component {
++       )
++     } else {
++       return (
++-        <Container>
++-          <div className="welcome-box centered-containter">
+++        <Container className="welcome-box">
++           <Form id="signup" onSubmit={this.onSubmitHandler}>
++             <Form.Field>
++               <input
++@@ -79,7 +78,6 @@ class Signup extends Component {
++             <Button type='submit'>Sign up</Button>
++ 
++           </Form>
++-          </div>
++         </Container>
++       );
++     }
++diff --git a/src/components/Welcome.js b/src/components/Welcome.js
++index 0d72d51..3481658 100644
++--- a/src/components/Welcome.js
+++++ b/src/components/Welcome.js
++@@ -12,7 +12,7 @@ class Welcome extends Component {
++ 
++   render() {
++     return (
++-      <Container>
+++      <Container className="start-container">
++           <Switch>
++             <Route path="/login" component={Login} />
++             <Route path="/signup" component={Signup} />
++diff --git a/src/reducers/initReducer.js b/src/reducers/initReducer.js
++index 8a0fd6e..495ae65 100644
++--- a/src/reducers/initReducer.js
+++++ b/src/reducers/initReducer.js
++@@ -104,15 +104,6 @@ const initReducer = (state = initialState, action) => {
++               color: action.payload
++             }
++           }
++-          case "SIZE":
++-          console.log("SIZE: ", action.payload)
++-          return {
++-            ...state,
++-            drawing: {
++-              ...state.drawing,
++-              lineWidth: parseInt(action.payload)
++-            }
++-          }
++           case "PLOTS":
++           return {
++             ...state,
++diff --git a/yarn.lock b/yarn.lock
++index 22b9ded..65cf46d 100755
++--- a/yarn.lock
+++++ b/yarn.lock
++@@ -6931,11 +6931,6 @@ p-try@^2.0.0:
++   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.0.0.tgz#85080bb87c64688fa47996fe8f7dfbe8211760b1"
++   integrity sha512-hMp0onDKIajHfIkdRk3P4CdCmErkYAxxDtP3Wx/4nZ3aGlau2VKh3mZpcuFkH27WQkL/3WBCPOktzA9ZOAnMQQ==
++ 
++-p5@^0.7.3:
++-  version "0.7.3"
++-  resolved "https://registry.yarnpkg.com/p5/-/p5-0.7.3.tgz#a0660327feb8da3e43359a16ad62566b96a7cabe"
++-  integrity sha512-Ap0Op/YlbqlBe9BEkpislygOKcID9+i6lbGHcUY/QkgZl21+Jy0GPpw+bLjgURk/wlloLcXGnUDpuGsP0xsx2Q==
++-
++ pac-proxy-agent@^2.0.1:
++   version "2.0.2"
++   resolved "https://registry.yarnpkg.com/pac-proxy-agent/-/pac-proxy-agent-2.0.2.tgz#90d9f6730ab0f4d2607dcdcd4d3d641aa26c3896"
