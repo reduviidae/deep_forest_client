@@ -13,11 +13,13 @@ class Welcome extends Component {
   render() {
     return (
       <Container>
+        <div className="welcome-grid">
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/" component={WelcomePath} />
           </Switch>
+          </div>
       </Container>
     )
   }

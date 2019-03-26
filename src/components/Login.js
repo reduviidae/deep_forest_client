@@ -42,7 +42,6 @@ class Login extends Component {
       )
     } else {
       return (
-        <Container>
           <div className="welcome-box centered-container">
           <Form id="login" onSubmit={this.onSubmitHandler}>
             <Form.Field>
@@ -74,7 +73,6 @@ class Login extends Component {
 
           </Form>
           </div>
-        </Container>
       );
     }
   }
