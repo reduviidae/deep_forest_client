@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS, DRAWING_ID, GAME_ID } from '../constants';
 import DrawingCable from '../ActionCable/DrawingCable';
+import ColorPalette from './ColorPalette';
 
 class Canvas extends Component {
 
@@ -105,39 +106,12 @@ class Canvas extends Component {
         >
           <canvas ref="canvas" width={(window.outerWidth * .8)} height={(window.innerHeight * .8)}/>
         </div>
-        <div>
-          <div className="color-palette" id="c-e12c2c" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-ff8833" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-fafa37" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-afe313" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-3aa655" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-00cccc" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-0066ff" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-3f26bf" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-803790" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-c8c8cd" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-8B8680" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-1b1b1b" onClick={this.changeColor}>
-          </div>
-          <div className="color-palette" id="c-ffffff" onClick={this.changeColor}>
-          </div>
-        </div>
         <br />
+        <ColorPalette changeColor={this.changeColor}/>
         <div className="drawing-tool-sizes">
-          <div className="drawing-tool-size" id="small" onClick={this.changeSize}>Small</div>
-          <div className="drawing-tool-size" id="medium" onClick={this.changeSize}>Medium</div>
-          <div className="drawing-tool-size" id="large" onClick={this.changeSize}>Large</div>
+          <div className="drawing-tool-size" id="small" onClick={this.changeSize}><div className="size-text">Small</div></div>
+          <div className="drawing-tool-size" id="medium" onClick={this.changeSize}><div className="size-text">Medium</div></div>
+          <div className="drawing-tool-size" id="large" onClick={this.changeSize}><div className="size-text">Large</div></div>
         </div>
       </Container>
     )

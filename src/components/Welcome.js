@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // components
@@ -12,7 +11,6 @@ class Welcome extends Component {
 
   render() {
     return (
-      <Container>
         <div className="welcome-grid">
           <Switch>
             <Route path="/login" component={Login} />
@@ -20,7 +18,6 @@ class Welcome extends Component {
             <Route path="/" component={WelcomePath} />
           </Switch>
           </div>
-      </Container>
     )
   }
 };
@@ -31,11 +28,5 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return (
-    null
-  )
-}
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Welcome)
+export default connect(mapStateToProps)(Welcome)

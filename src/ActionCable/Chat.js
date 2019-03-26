@@ -12,11 +12,6 @@ class Chat extends Component {
     sortedMessages: []
   }
 
-
-  componentDidMount(){
-
-  }
-
   typeMessage = (e, data) => {
     this.setState({ newmessage: data.value })
   }
@@ -38,7 +33,6 @@ class Chat extends Component {
 
 
   render (){
-    console.log(this.props.state.messages);
     const sortedMessages = !!this.props.state.messages && this.props.state.messages.sort(function(a, b){
           let keyA = new Date(a.created_at);
           let keyB = new Date(b.created_at);

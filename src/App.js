@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import { API_ROOT, AUTH_HEADERS } from './constants';
-import { connect } from 'react-redux';
 
 // components
 import Welcome from "./components/Welcome"
@@ -13,10 +11,6 @@ const token = localStorage.getItem('token');
 
 
 class App extends Component {
-
-  componentWillMount() {
-
-  }
 
   render() {
     return (

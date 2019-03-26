@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, List, Button, Form, Input } from 'semantic-ui-react';
+import { Container, List } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS, GAME_ID } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';

@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 // components
 import Canvas from "../components/Canvas";
 import Chat from "../ActionCable/Chat";
-
+import NavBar from "../components/NavBar"
 
 class GameContainer extends Component {
 
@@ -41,13 +41,16 @@ class GameContainer extends Component {
         )
       } else {
         return (
-        <Container className="game-container">
+        <Container>
+        <NavBar />
+        <div className="game-container">
           <div className="canvas-container">
             <Canvas currentGame={this.props.state} />
           </div>
           <div className="chat-container">
             <Chat />
           </div>
+        </div>
         </Container>
         )
       }
