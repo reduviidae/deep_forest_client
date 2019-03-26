@@ -11,9 +11,9 @@ import Chat from "../ActionCable/Chat";
 
 class GameContainer extends Component {
 
-
   componentDidMount(){
     this.fetchGame()
+    this.fetchMessages()
   }
 
   fetchGame = () => {
@@ -23,6 +23,15 @@ class GameContainer extends Component {
     })
       .then(r => r.json())
       .then(this.props.currentGame)
+  }
+
+  fetchMessages = () => {
+    fetch(`${API_ROOT}messages`, {
+      method: `GET`,
+      headers: AUTH_HEADERS
+    })
+      .then(r => r.json())
+      .then(this.props.allMessages)
   }
 
   render (){
@@ -51,7 +60,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    currentGame: data => dispatch({ type: "CUR_GAME", payload: data })
+    currentGame: data => dispatch({ type: "CUR_GAME", payload: data }),
+    allMessages: data => dispatch({ type: "MESSAGES", payload: data })
   }
 }
 

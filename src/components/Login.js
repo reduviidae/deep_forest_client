@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Form, Button, Input } from 'semantic-ui-react';
+import { Form, Button, Input } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { API_ROOT, BASIC_HEADERS } from '../constants';
 import { connect } from 'react-redux';
@@ -70,7 +70,6 @@ class Login extends Component {
             <br/>
 
             <Button type='submit'>Login</Button>
-
           </Form>
           </div>
       );

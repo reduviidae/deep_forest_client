@@ -15,13 +15,14 @@ const initialState = {
     currentGame: {
       messages: []
   },
-  drawing: {
-    id: 0,
-    draw: false,
-    plots: [],
-    color: "#1b1b1b",
-    lineWidth: 5
-  }
+    drawing: {
+      id: 0,
+      draw: false,
+      plots: [],
+      color: "#1b1b1b",
+      lineWidth: 5
+  },
+    messages: []
 }
 
 
@@ -58,6 +59,11 @@ const initReducer = (state = initialState, action) => {
             ...state,
             currentGame: action.payload
           }
+          case "MESSAGES":
+            return {
+              ...state,
+              messages: action.payload
+            }
         case "UP_MSG":
           console.log("UP_MSG", action.payload);
           return {

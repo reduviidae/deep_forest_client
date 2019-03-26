@@ -38,14 +38,15 @@ class Chat extends Component {
 
 
   render (){
-    const sortedMessages = !!this.props.state.currentGame.messages && this.props.state.currentGame.messages.sort(function(a, b){
+    console.log(this.props.state.messages);
+    const sortedMessages = !!this.props.state.messages && this.props.state.messages.sort(function(a, b){
           let keyA = new Date(a.created_at);
           let keyB = new Date(b.created_at);
           // Compare the 2 dates
           if(keyA < keyB) return -1;
           if(keyA > keyB) return 1;
           return 0;
-      }).slice(-10);
+      }).slice(-12);
     const messages = !!sortedMessages && sortedMessages.map(message => <Message message={message} />)
       return (
         <Container>

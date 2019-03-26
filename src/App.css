@@ -6,14 +6,10 @@ body {
   grid-template-rows: 20%, 60%, 20%;
 }
 
-a:visited {
-  color: "#1b1b1b"
-}
-
 .lead-text {
   font-family: 'Vampiro One', cursive;
   font-size: 6em;
-  font-color: "#1b1b1b";
+  font-color: "#1b1b1b"
 }
 
 .centered-text {
@@ -40,9 +36,14 @@ a:visited {
   padding: 20px;
   width: 80%;
   height: auto;
-  background-color: #FEFEFA;
   grid-column-start: 2;
   grid-row-start: 2;
+}
+
+.cream-background-layer{
+  background-color: #FEFEFA;
+  opacity: .8;
+  border-radius: 20%;
 }
 
 #profile-container {
@@ -71,6 +72,7 @@ canvas {
   border-color: #1b1b1b;
   border-width: thin;
   margin: 10px;
+  background-color: #FFFFFF;
 }
 
 
@@ -94,19 +96,20 @@ canvas {
 
 .game-container {
   display: grid;
-  grid-template-columns: 10fr 1fr 8fr 1fr;
+  grid-template-columns: 3fr, 10fr 0.1fr 3fr 2fr;
   grid-template-rows: 10fr 4fr;
+  background-color: #EAFFEF;
 }
 
 .canvas-container {
-  grid-column-start: 1;
+  grid-column-start: 2;
   margin: 20px;
 
 }
 
 .chat-container {
-  grid-column-start: 3;
-  grid-row-start: 1 / span 1;
+  grid-column-start: 4;
+  grid-row-start: 1;
   margin: 15px;
 
 }
@@ -121,8 +124,23 @@ canvas {
   padding: 5px;
 }
 
-.message-text {
+.message {
+  margin: 10px;
+}
+
+.message-content {
   text-align: left;
+  margin: 5px;
+}
+
+.msg-user-name {
+  font-size: 0.9em;
+  margin: -1px;
+}
+
+.msg-user-pronouns, .sent-on {
+  margin: -1px;
+  font-size: 0.1em;
 }
 
 .color-palette {
