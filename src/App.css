@@ -74,6 +74,10 @@ body {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 4fr 1fr 2fr;
+  background: #F7FBFA;
+  background: -webkit-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: -moz-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: linear-gradient(to bottom, #F7FBFA, #FFE3FF);
 }
 
 #show-profile {
@@ -84,7 +88,6 @@ body {
 .avi-img {
   height: 147px;
   width: auto;
-  margin-left: -125px;
 }
 
 .centered-container {

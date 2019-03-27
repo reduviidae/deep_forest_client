@@ -51,6 +51,17 @@ const initReducer = (state = initialState, action) => {
           }
         }
       }
+    case "NEW_AVATAR":
+    return {
+      ...state,
+      userState: {
+        ...state.userState,
+        user: {
+          ...state.userState.user,
+          avatar: action.payload
+        }
+      }
+    }
     case "LOGOUT":
       return {
         initialState
@@ -70,11 +81,11 @@ const initReducer = (state = initialState, action) => {
             ...state,
             currentGame: action.payload
           }
-          case "MESSAGES":
-            return {
-              ...state,
-              messages: action.payload
-            }
+        case "MESSAGES":
+          return {
+            ...state,
+            messages: action.payload
+          }
         case "UP_MSG":
           console.log("UP_MSG", action.payload);
           return {
