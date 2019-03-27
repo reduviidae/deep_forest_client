@@ -13,8 +13,10 @@ body {
 }
 
 .nav-bar {
-  background-color: #FAECFF;
-  height: auto;
+  background: #F7FBFA;
+  background: -webkit-linear-gradient(top, #F7FBFA, #FEFAFB);
+  background: -moz-linear-gradient(top, #F7FBFA, #FEFAFB);
+  background: linear-gradient(to bottom, #F7FBFA, #FEFAFB);
 }
 
 #logo {
@@ -26,7 +28,7 @@ body {
 .lead-text {
   font-family: 'Vampiro One', cursive;
   font-size: 6em;
-  font-color: "#1b1b1b"
+  color: "#1b1b1b"
 }
 
 .centered-text {
@@ -64,6 +66,10 @@ body {
   border-radius: 20%;
 }
 
+.button {
+  padding: 10px;
+}
+
 #profile-container {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -73,6 +79,12 @@ body {
 #show-profile {
   grid-row-start: 2;
   grid-column-start: 2;
+}
+
+.avi-img {
+  height: 147px;
+  width: auto;
+  margin-left: -125px;
 }
 
 .centered-container {
@@ -87,10 +99,10 @@ body {
 
 canvas {
   border: solid;
-  border-color: #1b1b1b;
+  border-color: #c8c8cd;
   border-width: thin;
   margin: 10px;
-  background-color: #FFFFFF;
+  background-color: #fcfaf5;
 }
 
 
@@ -105,8 +117,8 @@ canvas {
   border-color: #8B8680;
   border-width: 1px;
   font-size: 0.75em;
-  width: 50px;
-  height: 30px;
+  width: 45px;
+  height: 25px;
   float: left;
   margin: 5px;
 }
@@ -118,32 +130,44 @@ canvas {
 
 .game-container {
   display: grid;
-  grid-template-columns: 3fr, 10fr 0.1fr 3fr 2fr;
+  grid-template-columns: 1fr 8fr 1fr 4fr;
   grid-template-rows: 10fr 4fr;
-  background-color: #EAFFEF;
+  background: #F7FBFA;
+  background: -webkit-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: -moz-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: linear-gradient(to bottom, #F7FBFA, #FFE3FF);
 }
 
 .canvas-container {
-  grid-column-start: 2;
-  margin: 20px;
+  grid-column-start: 2 !important;
+  margin: 30px 15px, 10px, 5px;
 
 }
 
 .chat-container {
-  grid-column-start: 4;
+  grid-column-start: 4 !important;
   grid-row-start: 1;
-  margin: 15px;
+  margin: 20px;
 
 }
 
 .chat-text {
   font-family: 'Anonymous Pro', monospace;
   font-size: 0.75em;
+  color: #391285;
+}
+
+#chat-message-box {
+  width: 56%;
 }
 
 #new-message-box {
   margin: 40px;
   padding: 5px;
+}
+
+#newmessage, #send-message {
+  margin-left: -30px;
 }
 
 .message {
@@ -201,12 +225,12 @@ canvas {
   background-color: #fafa37;
 }
 
-#c-d9e650 {
-  background-color: #d9e650;
-}
-
 #c-afe313 {
   background-color: #afe313;
+}
+
+#c-d9e650 {
+  background-color: #d9e650;
 }
 
 #c-3aa655 {
@@ -245,9 +269,16 @@ canvas {
   background-color: #1b1b1b;
 }
 
+#c-fcfaf5 {
+  background-color: #fcfaf5;
+  border-color: #c8c8cd;
+  border-style: solid;
+  border-width: 1px;
+}
+
 #c-ffffff {
   background-color: #ffffff;
-  border-color: #8B8680;
+  border-color: #c8c8cd;
   border-style: solid;
   border-width: 1px;
 }

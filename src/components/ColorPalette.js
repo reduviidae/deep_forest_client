@@ -15,9 +15,9 @@ const ColorPalette = props => {
       </div>
       <div className="color-palette" id="c-fbe870" onClick={props.changeColor}>
       </div>
-      <div className="color-palette" id="c-d9e650" onClick={props.changeColor}>
-      </div>
       <div className="color-palette" id="c-fafa37" onClick={props.changeColor}>
+      </div>
+      <div className="color-palette" id="c-d9e650" onClick={props.changeColor}>
       </div>
       <div className="color-palette" id="c-afe313" onClick={props.changeColor}>
       </div>
@@ -33,13 +33,13 @@ const ColorPalette = props => {
       </div>
       <div className="color-palette" id="c-803790" onClick={props.changeColor}>
       </div>
-      <div className="color-palette" id="c-c8c8cd" onClick={props.changeColor}>
+      <div className="color-palette" id="c-1b1b1b" onClick={props.changeColor}>
       </div>
       <div className="color-palette" id="c-8B8680" onClick={props.changeColor}>
       </div>
-      <div className="color-palette" id="c-1b1b1b" onClick={props.changeColor}>
+      <div className="color-palette" id="c-c8c8cd" onClick={props.changeColor}>
       </div>
-      <div className="color-palette" id="c-ffffff" onClick={props.changeColor}>
+      <div className="color-palette" id="c-fcfaf5" onClick={props.changeColor}>
       </div>
     </div>
   )

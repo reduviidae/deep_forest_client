@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Button, TextArea, Form } from 'semantic-ui-react';
+import { Container, Button, Form, TextArea } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS, GAME_ID } from '../constants';
 import { connect } from 'react-redux';
 import Cable from './Cable'
@@ -40,7 +40,7 @@ class Chat extends Component {
           if(keyA < keyB) return -1;
           if(keyA > keyB) return 1;
           return 0;
-      }).slice(-12);
+      }).slice(-9);
     const messages = !!sortedMessages && sortedMessages.map(message => <Message message={message} />)
       return (
         <Container>
@@ -50,9 +50,9 @@ class Chat extends Component {
         <Cable />
         <div className="chat-text" id="new-message-box">
           <Form onSubmit={this.sendMessage}>
-            <TextArea value={this.state.newmessage} style={{ minHeight: 100, minWidth: 200 }} name="newmessage" onChange={this.typeMessage}/>
+            <TextArea id="newmessage" type="text" value={this.state.newmessage} style={{ minHeight: 50, minWidth: 200 }} name="newmessage" onChange={this.typeMessage}/>
             <br/>
-            <Button>Send Message</Button>
+            <Button id="send-message" className="button">Send Message</Button>
           </Form>
         </div>
       </Container>

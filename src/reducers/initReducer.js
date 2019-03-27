@@ -40,6 +40,17 @@ const initReducer = (state = initialState, action) => {
         userState: action.payload,
         loggedIn: true
       }
+    case "NEW_PRONOUNS":
+      return {
+        ...state,
+        userState: {
+          ...state.userState,
+          user: {
+            ...state.userState.user,
+            pronouns: action.payload.pronouns
+          }
+        }
+      }
     case "LOGOUT":
       return {
         initialState
@@ -68,9 +79,7 @@ const initReducer = (state = initialState, action) => {
           console.log("UP_MSG", action.payload);
           return {
             ...state,
-            currentGame: {
-              messages: [ ...state.currentGame.messages, action.payload]
-            }
+              messages: [ ...state.messages, action.payload]
           }
         case "CABLE_DRAW":
           return {
@@ -111,7 +120,6 @@ const initReducer = (state = initialState, action) => {
             }
           }
           case "SIZE":
-          console.log("SIZE: ", action.payload)
           return {
             ...state,
             drawing: {

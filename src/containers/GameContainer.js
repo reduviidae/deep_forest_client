@@ -61,11 +61,13 @@ const mapStateToProps = state => {
     return { state }
 }
 
+
 const mapDispatchToProps = dispatch => {
   return {
     currentGame: data => dispatch({ type: "CUR_GAME", payload: data }),
     allMessages: data => dispatch({ type: "MESSAGES", payload: data })
   }
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer);

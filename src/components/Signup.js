@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { API_ROOT, BASIC_HEADERS } from '../constants';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { authenticateUser } from '../actions/userActions'
 
@@ -75,7 +75,10 @@ class Signup extends Component {
             </Form.Field>
             <br/>
 
-            <Button type='submit'>Sign up</Button>
+            <Button className="button" type='submit'>Sign up</Button>
+            <Button className="button"><NavLink activeStyle={{textDecoration: "none", color: "#1b1b1b"}} style={{textDecoration: "none", color: "#1b1b1b"}} to={`/login`}>
+            Login
+            </NavLink></Button>
 
           </Form>
           </div>

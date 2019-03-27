@@ -79,7 +79,6 @@ class Canvas extends Component {
   }
 
   changeSize = e => {
-
     switch(e.target.id){
       case "small":
         this.props.changeSize(1);
@@ -104,14 +103,14 @@ class Canvas extends Component {
         onMouseUp={this.drawToFalse}
         onMouseMove={this.draw}
         >
-          <canvas ref="canvas" width={(window.outerWidth * .8)} height={(window.innerHeight * .8)}/>
+          <canvas ref="canvas" width={(window.outerWidth * .7)} height={(window.innerHeight * .7)}/>
         </div>
         <br />
         <ColorPalette changeColor={this.changeColor}/>
         <div className="drawing-tool-sizes">
-          <div className="drawing-tool-size" id="small" onClick={this.changeSize}><div className="size-text">Small</div></div>
-          <div className="drawing-tool-size" id="medium" onClick={this.changeSize}><div className="size-text">Medium</div></div>
-          <div className="drawing-tool-size" id="large" onClick={this.changeSize}><div className="size-text">Large</div></div>
+          <div className="drawing-tool-size size-text" id="small" onClick={this.changeSize}>S</div>
+          <div className="drawing-tool-size size-text" id="medium" onClick={this.changeSize}>M</div>
+          <div className="drawing-tool-size size-text" id="large" onClick={this.changeSize}>L</div>
         </div>
       </Container>
     )
