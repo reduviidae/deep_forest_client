@@ -74,7 +74,7 @@ class Profile extends Component {
           <br/>
           <br/>
           <br/>
-          <p>Which animal do you feel like today?</p>
+          <p>Click on an animal to change your chat avatar.</p>
           <List className="avis">
             <img className="avi-img" onClick={this.changeAvatar} src={require("../img/pink_fairy_armadillo.png")} alt="pink_fairy_armadillo"/>
             <img className="avi-img" onClick={this.changeAvatar} src={require("../img/okapi.png")} alt="okapi"/>
