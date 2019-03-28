@@ -5,8 +5,8 @@ const Message = props => {
   let sentOn = new Date(props.message.created_at).toLocaleDateString("en-US", options)
   return (
     <div className="message">
-      <h5 className="msg-user-name">{props.message.user.name}</h5>
-      <aside className="msg-user-pronouns">({props.message.user.pronouns})</aside>
+      <img className="chat-avi" src={require(`../img/${props.message.user.avatar}.png`)} alt={`${props.message.user.avatar}`}/>
+      <h5 className="msg-user-name">{props.message.user.name} ({props.message.user.pronouns})</h5>
       <p className="message-content">{props.message.content}</p>
       <p className="sent-on">sent on: {sentOn}</p>
     </div>

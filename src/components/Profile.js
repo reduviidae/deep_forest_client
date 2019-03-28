@@ -3,8 +3,7 @@ import { Container, List, Input, Button } from 'semantic-ui-react';
 import { API_ROOT, AUTH_HEADERS, GAME_ID } from '../constants';
 import { connect } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
-// import GameList from './GameList';
-// import Cable from '../ActionCable/Cable'
+import NavBar from "./NavBar"
 
 
 
@@ -68,6 +67,7 @@ class Profile extends Component {
     } else {
       return (
         <Container id="profile-container">
+          <NavBar/>
           <div id="show-profile">
           <h2>Welcome back, {this.props.state.userState.user.name}</h2>
           <br/>
@@ -76,10 +76,10 @@ class Profile extends Component {
           <br/>
           <p>Which animal do you feel like today?</p>
           <List className="avis">
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/pink_fairy_armadillo.png")} alt="pink fairy armadillo"/>
+            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/pink_fairy_armadillo.png")} alt="pink_fairy_armadillo"/>
             <img className="avi-img" onClick={this.changeAvatar} src={require("../img/okapi.png")} alt="okapi"/>
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/manedwolf.png")} alt="maned wolf"/>
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/glaucus_atlanticus.png")} alt="glaucus atlanticus"/>
+            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/manedwolf.png")} alt="manedwolf"/>
+            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/glaucus_atlanticus.png")} alt="glaucus_atlanticus"/>
             <img className="avi-img" onClick={this.changeAvatar} src={require("../img/fossa.png")} alt="fossa"/>
           </List>
           <br/>

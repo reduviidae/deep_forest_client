@@ -19,10 +19,16 @@ body {
   background: linear-gradient(to bottom, #F7FBFA, #FEFAFB);
 }
 
-#logo {
-  height: 20px;
+#welcome-logo {
+  height: 200px;
   width: auto;
   margin: 10px;
+}
+
+#nav-logo {
+  height: 50px;
+  width: auto;
+  margin: 10px 5px 5px 50px;
 }
 
 .lead-text {
@@ -87,6 +93,11 @@ body {
 
 .avi-img {
   height: 147px;
+  width: auto;
+}
+
+.chat-avi {
+  height: 40px;
   width: auto;
 }
 

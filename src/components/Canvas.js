@@ -103,7 +103,7 @@ class Canvas extends Component {
         onMouseUp={this.drawToFalse}
         onMouseMove={this.draw}
         >
-          <canvas ref="canvas" width={(window.outerWidth * .7)} height={(window.innerHeight * .7)}/>
+          <canvas ref="canvas" width={(window.outerWidth * .7)} height={(window.innerHeight * .8)}/>
         </div>
         <br />
         <ColorPalette changeColor={this.changeColor}/>

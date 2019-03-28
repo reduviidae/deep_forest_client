@@ -43,6 +43,7 @@ class Login extends Component {
     } else {
       return (
           <div className="welcome-box centered-container">
+          <img src={require("../img/logo.png")} alt="logo" id="welcome-logo"/>
           <Form id="login" onSubmit={this.onSubmitHandler}>
             <Form.Field>
               <Input

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)http://localhost:3001/game/11 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="shortcut icon" href="http://localhost:3001/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="http://localhost:3001/manifest.json">
+    <!--
+      Notice the use of  in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  <style type="text/css">body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+</style><style type="text/css">@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro|Arsenal|Vampiro+One);</style><style type="text/css">*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Arsenal', sans-serif;
+  grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
+  grid-template-rows: 20%, 60%, 20%;
+}
+
+.nav-bar {
+  background: #F7FBFA;
+  background: -webkit-linear-gradient(top, #F7FBFA, #FEFAFB);
+  background: linear-gradient(to bottom, #F7FBFA, #FEFAFB);
+}
+
+#logo {
+  height: 20px;
+  width: auto;
+  margin: 10px;
+}
+
+.lead-text {
+  font-family: 'Vampiro One', cursive;
+  font-size: 6em;
+  color: "#1b1b1b"
+}
+
+.centered-text {
+  text-align: center;
+}
+
+.welcome-grid {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr 4fr 1fr;
+  background-image: url(/static/media/activity-aquarelle-art-587549.d1148eda.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+
+.start-container {
+  grid-column-start: 3;
+  grid-row-start: 2;
+}
+
+.welcome-box{
+  padding: 20px;
+  width: 80%;
+  height: auto;
+  grid-column-start: 2;
+  grid-row-start: 2;
+}
+
+.cream-background-layer{
+  background-color: #FEFEFA;
+  opacity: .8;
+  border-radius: 20%;
+}
+
+.button {
+  padding: 10px;
+}
+
+#profile-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-rows: 1fr 4fr 1fr 2fr;
+  background: #F7FBFA;
+  background: -webkit-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: linear-gradient(to bottom, #F7FBFA, #FFE3FF);
+}
+
+#show-profile {
+  grid-row-start: 2;
+  grid-column-start: 2;
+}
+
+.avi-img {
+  height: 147px;
+  width: auto;
+}
+
+.centered-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+canvas {
+  border: solid;
+  border-color: #c8c8cd;
+  border-width: thin;
+  margin: 10px;
+  background-color: #fcfaf5;
+}
+
+
+.drawing-tool-sizes {
+  clear: both;
+  margin: 3px;
+  padding: 5px;
+}
+
+.drawing-tool-size {
+  border-style: solid;
+  border-color: #8B8680;
+  border-width: 1px;
+  font-size: 0.75em;
+  width: 45px;
+  height: 25px;
+  float: left;
+  margin: 5px;
+}
+
+.size-text {
+  text-align: center;
+  vertical-align: center;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 8fr 1fr 4fr;
+  grid-template-rows: 10fr 4fr;
+  background: #F7FBFA;
+  background: -webkit-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: linear-gradient(to bottom, #F7FBFA, #FFE3FF);
+}
+
+.canvas-container {
+  grid-column-start: 2 !important;
+  margin: 30px 15px, 10px, 5px;
+
+}
+
+.chat-container {
+  grid-column-start: 4 !important;
+  grid-row-start: 1;
+  margin: 20px;
+
+}
+
+.chat-text {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 0.75em;
+  color: #391285;
+}
+
+#chat-message-box {
+  width: 56%;
+}
+
+#new-message-box {
+  margin: 40px;
+  padding: 5px;
+}
+
+#newmessage, #send-message {
+  margin-left: -30px;
+}
+
+.message {
+  margin: 10px;
+}
+
+.message-content {
+  text-align: left;
+  margin: 5px;
+}
+
+.msg-user-name {
+  font-size: 0.9em;
+  margin: -1px;
+}
+
+.msg-user-pronouns, .sent-on {
+  margin: -1px;
+  font-size: 0.1em;
+}
+
+.color-palette {
+  height: 40px;
+  width: 40px;
+  margin: 2px;
+  border-radius: 100%;
+  float: left;
+}
+
+#c-ff6eff {
+  background-color: #ff6eff;
+}
+
+#c-ff007c {
+  background-color: #ff007c;
+}
+
+#c-e12c2c {
+  background-color: #e12c2c;
+}
+
+#c-ff8833 {
+  background-color: #ff8833;
+}
+
+#c-f2ba49 {
+  background-color: #f2ba49;
+}
+
+#c-fbe870 {
+  background-color: #fbe870;
+}
+
+#c-fafa37 {
+  background-color: #fafa37;
+}
+
+#c-afe313 {
+  background-color: #afe313;
+}
+
+#c-d9e650 {
+  background-color: #d9e650;
+}
+
+#c-3aa655 {
+  background-color: #3aa655;
+}
+
+#c-03eba6 {
+  background-color: #03eba6;
+}
+
+#c-00cccc {
+  background-color: #00cccc;
+}
+
+#c-0066ff {
+  background-color: #0066ff;
+}
+
+#c-3f26bf {
+  background-color: #3f26bf;
+}
+
+#c-803790 {
+  background-color: #803790;
+}
+
+#c-c8c8cd {
+  background-color: #c8c8cd;
+}
+
+#c-8B8680 {
+  background-color: #8B8680;
+}
+
+#c-1b1b1b {
+  background-color: #1b1b1b;
+}
+
+#c-fcfaf5 {
+  background-color: #fcfaf5;
+  border-color: #c8c8cd;
+  border-style: solid;
+  border-width: 1px;
+}
+
+#c-ffffff {
+  background-color: #ffffff;
+  border-color: #c8c8cd;
+  border-style: solid;
+  border-width: 1px;
+}
+</style></head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"><div class="ui container"><div class="nav-bar"><img src="./React App_files/placeholderLogo.3a5787c3.png" alt="logo" id="logo"></div><div class="game-container"><div class="canvas-container"><div class="ui container"><div id="canvas"><canvas width="1344" height="767.9"></canvas></div><br><div><div class="color-palette" id="c-ff6eff"></div><div class="color-palette" id="c-ff007c"></div><div class="color-palette" id="c-e12c2c"></div><div class="color-palette" id="c-ff8833"></div><div class="color-palette" id="c-f2ba49"></div><div class="color-palette" id="c-fbe870"></div><div class="color-palette" id="c-fafa37"></div><div class="color-palette" id="c-d9e650"></div><div class="color-palette" id="c-afe313"></div><div class="color-palette" id="c-3aa655"></div><div class="color-palette" id="c-03eba6"></div><div class="color-palette" id="c-00cccc"></div><div class="color-palette" id="c-0066ff"></div><div class="color-palette" id="c-3f26bf"></div><div class="color-palette" id="c-803790"></div><div class="color-palette" id="c-1b1b1b"></div><div class="color-palette" id="c-8B8680"></div><div class="color-palette" id="c-c8c8cd"></div><div class="color-palette" id="c-fcfaf5"></div></div><div class="drawing-tool-sizes"><div class="drawing-tool-size size-text" id="small">S</div><div class="drawing-tool-size size-text" id="medium">M</div><div class="drawing-tool-size size-text" id="large">L</div></div></div></div><div class="chat-container"><div class="ui container"><ul class="chat-text" id="chat-message-box"><div class="message"><h5 class="msg-user-name">Parmenides</h5><aside class="msg-user-pronouns">(they/them)</aside><p class="message-content">test</p><p class="sent-on">sent on: Tuesday, March 26, 11:44 AM</p></div><div class="message"><h5 class="msg-user-name">Deer</h5><aside class="msg-user-pronouns">(she/her)</aside><p class="message-content">bees love honey</p><p class="sent-on">sent on: Tuesday, March 26, 3:02 PM</p></div><div class="message"><h5 class="msg-user-name">Parmenides</h5><aside class="msg-user-pronouns">(they/them)</aside><p class="message-content">I ate a bee once.</p><p class="sent-on">sent on: Tuesday, March 26, 3:03 PM</p></div><div class="message"><h5 class="msg-user-name">Deer</h5><aside class="msg-user-pronouns">(she/her)</aside><p class="message-content">message</p><p class="sent-on">sent on: Tuesday, March 26, 3:07 PM</p></div><div class="message"><h5 class="msg-user-name">Deer</h5><aside class="msg-user-pronouns">(she/her)</aside><p class="message-content">dogs do not exist</p><p class="sent-on">sent on: Tuesday, March 26, 3:30 PM</p></div><div class="message"><h5 class="msg-user-name">Parmenides</h5><aside class="msg-user-pronouns">(they/them)</aside><p class="message-content">testing</p><p class="sent-on">sent on: Tuesday, March 26, 7:08 PM</p></div><div class="message"><h5 class="msg-user-name">Parmenides</h5><aside class="msg-user-pronouns">(they/them)</aside><p class="message-content">Geese</p><p class="sent-on">sent on: Tuesday, March 26, 7:09 PM</p></div><div class="message"><h5 class="msg-user-name">Deer</h5><aside class="msg-user-pronouns">(she/her)</aside><p class="message-content">test</p><p class="sent-on">sent on: Tuesday, March 26, 10:02 PM</p></div><div class="message"><h5 class="msg-user-name">Deer</h5><aside class="msg-user-pronouns">(she/her)</aside><p class="message-content">what happens if I write a very long message here what will it look like when it displays, how will it fill the space, how will it get shifted around, i do not know, but the more i type the better my sample will be</p><p class="sent-on">sent on: Tuesday, March 26, 10:18 PM</p></div></ul><div class="chat-text" id="new-message-box"><form class="ui form"><textarea id="newmessage" type="text" name="newmessage" rows="3" style="min-height: 50px; min-width: 200px;"></textarea><br><button id="send-message" class="ui button button">Send Message</button></form></div></div></div></div></div></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  <script src="./React App_files/bundle.js"></script><script src="./React App_files/0.chunk.js"></script><script src="./React App_files/main.chunk.js"></script><script src="./React App_files/main.918e114c805519d1c203.hot-update.js"></script>
+
+</body></html>
