@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro|Arsenal|Vampiro+One');
+@import url('https://fonts.googleapis.com/css?family=Anonymous+Pro|Arsenal|Schoolbell');
 
 *{
   box-sizing: border-box;
@@ -10,9 +10,14 @@ body {
   font-family: 'Arsenal', sans-serif;
   grid-template-columns: 1fr, 1fr, 3fr, 1fr, 1fr;
   grid-template-rows: 20%, 60%, 20%;
+  background: #F7FBFA;
+  background: -webkit-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: -moz-linear-gradient(top, #F7FBFA, #FFE3FF);
+  background: linear-gradient(to bottom, #F7FBFA, #FFE3FF);
 }
 
 .nav-bar {
+  /* background: rgba(0, 0, 0, 0); */
   background: #F7FBFA;
   background: -webkit-linear-gradient(top, #F7FBFA, #FEFAFB);
   background: -moz-linear-gradient(top, #F7FBFA, #FEFAFB);
@@ -32,8 +37,8 @@ body {
 }
 
 .lead-text {
-  font-family: 'Vampiro One', cursive;
-  font-size: 6em;
+  font-family: 'Schoolbell', cursive;
+  font-size: 4.5em;
   color: "#1b1b1b"
 }
 
@@ -47,7 +52,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 4fr 1fr;
-  background-image: url('./img/activity-aquarelle-art-587549.jpg');
+  background-image: url('./img/background.png');
   background-repeat: no-repeat;
   background-size: 100%;
 }
@@ -66,24 +71,21 @@ body {
   grid-row-start: 2;
 }
 
-.cream-background-layer{
+/* .cream-background-layer{
   background-color: #FEFEFA;
   opacity: .8;
   border-radius: 20%;
-}
+} */
 
 .button {
   padding: 10px;
+  margin: 6px;
 }
 
 #profile-container {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 4fr 1fr 2fr;
-  background: #F7FBFA;
-  background: -webkit-linear-gradient(top, #F7FBFA, #FFE3FF);
-  background: -moz-linear-gradient(top, #F7FBFA, #FFE3FF);
-  background: linear-gradient(to bottom, #F7FBFA, #FFE3FF);
 }
 
 #show-profile {
@@ -96,6 +98,28 @@ body {
   width: auto;
 }
 
+.avi-img:active {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(5px, 5px) rotate(0deg); }
+  10% { transform: translate(-6px, -7px) rotate(-1deg); }
+  20% { transform: translate(-8px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 9px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
 .chat-avi {
   height: 40px;
   width: auto;
@@ -105,6 +129,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  justify-self: center;
 }
 
 .hidden {
@@ -146,10 +172,6 @@ canvas {
   display: grid;
   grid-template-columns: 1fr 8fr 1fr 4fr;
   grid-template-rows: 10fr 4fr;
-  background: #F7FBFA;
-  background: -webkit-linear-gradient(top, #F7FBFA, #FFE3FF);
-  background: -moz-linear-gradient(top, #F7FBFA, #FFE3FF);
-  background: linear-gradient(to bottom, #F7FBFA, #FFE3FF);
 }
 
 .canvas-container {

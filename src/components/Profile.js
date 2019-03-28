@@ -66,39 +66,38 @@ class Profile extends Component {
       )
     } else {
       return (
-        <Container id="profile-container">
+        <div>
           <NavBar/>
-          <div id="show-profile">
-          <h2>Welcome back, {this.props.state.userState.user.name}</h2>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <p>Click on an animal to change your chat avatar.</p>
-          <List className="avis">
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/pink_fairy_armadillo.png")} alt="pink_fairy_armadillo"/>
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/okapi.png")} alt="okapi"/>
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/manedwolf.png")} alt="manedwolf"/>
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/glaucus_atlanticus.png")} alt="glaucus_atlanticus"/>
-            <img className="avi-img" onClick={this.changeAvatar} src={require("../img/fossa.png")} alt="fossa"/>
-          </List>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <p>Your pronouns are currently set to: {this.props.state.userState.user.pronouns}</p>
-          <Input type="text" placeholder="Enter new pronouns" name="pronouns" onChange={(e, data) => this.enterPronouns(e, data)}/>
-          <br/>
-          <Button className="button" type='submit' onClick={this.changePronouns}>Change Pronouns</Button>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <NavLink activeStyle={{color: "#1b1b1b"}} style={{textDecoration: "none", fontSize: "3em", color: "#1b1b1b", float: "right"}} key={`${GAME_ID}`} game={'Chat and Draw'} to={`/game/${GAME_ID}`}>Join Chat and Draw</NavLink>
-          </div>
-      </Container>
+          <Container id="profile-container">
+              <div id="show-profile">
+              <h2>Welcome back, {this.props.state.userState.user.name}</h2>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <p>Click on an animal to change your chat avatar.</p>
+              <List className="avis">
+                <img className="avi-img" onClick={this.changeAvatar} src={require("../img/pink_fairy_armadillo.png")} alt="pink_fairy_armadillo"/>
+                <img className="avi-img" onClick={this.changeAvatar} src={require("../img/okapi.png")} alt="okapi"/>
+                <img className="avi-img" onClick={this.changeAvatar} src={require("../img/manedwolf.png")} alt="manedwolf"/>
+                <img className="avi-img" onClick={this.changeAvatar} src={require("../img/glaucus_atlanticus.png")} alt="glaucus_atlanticus"/>
+                <img className="avi-img" onClick={this.changeAvatar} src={require("../img/fossa.png")} alt="fossa"/>
+              </List>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <p>Your pronouns are currently set to: {this.props.state.userState.user.pronouns}</p>
+              <Input type="text" placeholder="Enter new pronouns" name="pronouns" onChange={(e, data) => this.enterPronouns(e, data)}/>
+              <br/>
+              <Button className="button" type='submit' onClick={this.changePronouns}>Change Pronouns</Button>
+              <br/>
+              <br/>
+              <br/>
+              <NavLink activeStyle={{color: "#1b1b1b"}} style={{textDecoration: "none", fontSize: "3em", color: "#1b1b1b", float: "right"}} key={`${GAME_ID}`} game={'Chat and Draw'} to={`/game/${GAME_ID}`}>Join Chat and Draw</NavLink>
+              </div>
+          </Container>
+        </div>
     )
     }
 

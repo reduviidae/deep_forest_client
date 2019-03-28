@@ -10,8 +10,7 @@ class Signup extends Component {
   state={
     name:"",
     pronouns: "",
-    password:"",
-    avatar: "pink_fairy_armadillo"
+    password:""
   };
 
   onChangeHandler = e => {

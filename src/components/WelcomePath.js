@@ -4,7 +4,7 @@ import LoginSignupButtons from './LoginSignupButtons';
 
 const WelcomePath = () => {
 return (
-    <div className="welcome-box">
+    <div className="welcome-box centered-container">
       <div className="cream-background-layer">
         <h1 className="lead-text centered-text">Flatiron Draw & Chat</h1>
         <br/>
