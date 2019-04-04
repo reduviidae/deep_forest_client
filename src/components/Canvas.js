@@ -16,7 +16,9 @@ class Canvas extends Component {
   }
 
   drawToFalse = e => {
-    if(this.props.drawing.draw){
+    // check to ensure state has correctly formatted data, and prevent crash if not
+    let plots = !!this.props.drawing.plots && this.props.drawing.plots.filter(plot => plot.x !== null && plot.y !== null)
+    if(this.props.drawing.draw && this.props.drawing.plots){
       fetch(`${API_ROOT}drawings`, {
           method: `PATCH`,
         headers: AUTH_HEADERS,
@@ -24,7 +26,7 @@ class Canvas extends Component {
           draw: true,
           color: this.props.drawing.color,
           lineWidth: this.props.drawing.lineWidth,
-          plots: this.props.drawing.plots,
+          plots: plots,
           game_id: GAME_ID
         })
       }).then(this.setState({ plots: [] }))
@@ -40,7 +42,7 @@ class Canvas extends Component {
     ctx.lineJoin = "bevel";
     ctx.strokeStyle = color;
     ctx.imageSmoothingQuality = "high";
-    if(!!plots){
+    if(!!plots[0]){
       ctx.beginPath();
       ctx.moveTo(plots[0].x, plots[0].y);
       for(let i=1; i<plots.length; i++) {

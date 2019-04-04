@@ -59,7 +59,7 @@ class Profile extends Component {
 
 
   render (){
-    console.log(this.props.state.userState.user.avatar);
+  
     if (!this.props.state.loggedIn) {
       return (
         <Redirect to="/" />
