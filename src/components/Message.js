@@ -5,7 +5,6 @@ const Message = props => {
   let sentOn = new Date(props.message.created_at).toLocaleDateString("en-US", options)
   return (
     <div className="message">
-      <img className="chat-avi" src={require(`../img/${props.message.user.avatar}.png`)} alt={`${props.message.user.avatar}`}/>
       <h5 className="msg-user-name">{props.message.user.name} ({props.message.user.pronouns})</h5>
       <p className="message-content">{props.message.content}</p>
       <p className="sent-on">sent on: {sentOn}</p>
@@ -14,3 +13,7 @@ const Message = props => {
 }
 
 export default Message;
+
+
+// removed chat avi because it was crashing Heroku
+// <img className="chat-avi" src={require(`../img/${props.message.user.avatar}.png`)} alt={`${props.message.user.avatar}`}/>
