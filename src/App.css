@@ -17,7 +17,6 @@ body {
 }
 
 .nav-bar {
-  /* background: rgba(0, 0, 0, 0); */
   background: #F7FBFA;
   background: -webkit-linear-gradient(top, #F7FBFA, #FEFAFB);
   background: -moz-linear-gradient(top, #F7FBFA, #FEFAFB);
@@ -70,12 +69,6 @@ body {
   grid-column-start: 2;
   grid-row-start: 2;
 }
-
-/* .cream-background-layer{
-  background-color: #FEFEFA;
-  opacity: .8;
-  border-radius: 20%;
-} */
 
 .button {
   padding: 10px;
@@ -175,16 +168,14 @@ canvas {
 }
 
 .canvas-container {
-  grid-column-start: 2 !important;
-  margin: 30px 15px, 10px, 5px;
-
+  grid-column-start: 2;
+  margin: 30px 15px, 50px, 5px;
 }
 
 .chat-container {
   grid-column-start: 4 !important;
   grid-row-start: 1;
   margin: 20px;
-
 }
 
 .chat-text {
@@ -194,7 +185,7 @@ canvas {
 }
 
 #chat-message-box {
-  width: 56%;
+  width: 90%;
 }
 
 #new-message-box {

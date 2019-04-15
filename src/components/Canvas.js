@@ -98,14 +98,14 @@ class Canvas extends Component {
 
   render (){
     return (
-      <Container>
+      <div>
         <DrawingCable drawOnCanvas={this.drawOnCanvas} />
         <div id="canvas"
         onMouseDown={this.props.drawToTrue}
         onMouseUp={this.drawToFalse}
         onMouseMove={this.draw}
         >
-          <canvas ref="canvas" width={(window.outerWidth * .7)} height={(window.innerHeight * .8)}/>
+          <canvas ref="canvas" width={(window.outerWidth * .7)} height={(window.innerHeight * .7)}/>
         </div>
         <br />
         <ColorPalette changeColor={this.changeColor}/>
@@ -114,7 +114,7 @@ class Canvas extends Component {
           <div className="drawing-tool-size size-text" id="medium" onClick={this.changeSize}>M</div>
           <div className="drawing-tool-size size-text" id="large" onClick={this.changeSize}>L</div>
         </div>
-      </Container>
+      </div>
     )
   }
 }

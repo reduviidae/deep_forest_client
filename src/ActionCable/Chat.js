@@ -40,7 +40,7 @@ class Chat extends Component {
           if(keyA < keyB) return -1;
           if(keyA > keyB) return 1;
           return 0;
-      }).slice(-8);
+      }).slice(-6);
     const messages = !!sortedMessages && sortedMessages.map(message => <Message message={message} />)
       return (
         <Container>
