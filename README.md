@@ -2,6 +2,8 @@
 
 Please review the video-demo branch to see the working version of the simple chat and draw feature.
 
+Before running the client, please download and run the backend: https://github.com/reduviidae/deep_forest_api
+
 To run the client, install packages and run 'yarn start.'
 
 # The Deep Forest
