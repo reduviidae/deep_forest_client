@@ -1,5 +1,11 @@
-# Issues
+# To See Chat App
 
-- Files /src/components/Login.js and /src/components/Signup.js are largely identical. Code needs to be abstracted.
+Please review the video-demo branch to see the working version of the simple chat and draw feature.
 
-- Current authentication is for development only. In order for ActionCable to access the token, it is being stored as a cookie by the client. 
+To run the client, install packages and run 'yarn start.'
+
+# The Deep Forest
+
+The Deep Forest is a wonderfully inventive game created by Mark Diaz Truman and Avery Alder. https://buriedwithoutceremony.com/the-quiet-year/the-deep-forest
+
+This app is a work in progress, and is being built as an online verion of The Deep Forest. 
